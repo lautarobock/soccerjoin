@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatSidenavModule, MatToolbarModule, MatButtonModule } from '@angular/material';
+import { MatSidenavModule, MatToolbarModule, MatButtonModule, MatListModule } from '@angular/material';
 import { LoginComponent } from './home/login/login.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { StravaComponent } from './home/strava/strava.component';
@@ -32,6 +32,7 @@ import { StravaComponent } from './home/strava/strava.component';
     MatSidenavModule,
     MatToolbarModule,
     MatButtonModule,
+    MatListModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login/strava', component: StravaComponent}

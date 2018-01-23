@@ -1,3 +1,10 @@
-Code: {{code}}
-<hr/>
-Token: {{token}}
+<mat-list>
+  <mat-list-item *ngFor="let item of data; last as last">
+    <h4 mat-line>{{item.name}}</h4>
+    <p mat-line>
+      {{item.type}} {{item.distance/1000|number}}Km on {{item.start_date | date}}
+    </p>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </mat-list-item>
+</mat-list>
+<!-- <pre>{{data | json:2}}</pre> -->
