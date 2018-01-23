@@ -26,7 +26,7 @@
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:prerender": "cd dist/browser && http-server",
     "serve:ssr": "node dist/server",
-    "_postinstall": "npm i -g @angular/cli@1.6.5 && npm run build:ssr"
+    "postinstall": "npm i -g @angular/cli@1.6.5 && npm run build:ssr"
   },
   "private": true,
   "dependencies": {
