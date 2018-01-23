@@ -5,17 +5,16 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'home',
-  template: `<h3>{{ message }}</h3>`
+  template: `<sj-login></sj-login>
+  <sj-footer></sj-footer>`
 })
 export class HomeComponent implements OnInit {
-  public message: string;
+  // public message: string;
 
-  constructor(
-    private httpClient: HttpClient
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     // this.httpClient.get('/api/test').subscribe(res => this.message = JSON.stringify(res));
-    this.message = 'Hello';
+    // this.message = 'Hello';
   }
 }

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule, MatToolbarModule, MatButtonModule } from '@angular/material';
 import { LoginComponent } from './home/login/login.component';
 import { FooterComponent } from './home/footer/footer.component';
+import { StravaComponent } from './home/strava/strava.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FooterComponent } from './home/footer/footer.component';
     HomeComponent,
     LoginComponent,
     FooterComponent,
+    StravaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
@@ -32,8 +34,9 @@ import { FooterComponent } from './home/footer/footer.component';
     MatButtonModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule' },
-      { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule' }
+      { path: 'login/strava', component: StravaComponent}
+      // { path: 'lazy', loadChildren: './lazy/lazy.module#LazyModule' },
+      // { path: 'lazy/nested', loadChildren: './lazy/lazy.module#LazyModule' }
     ])
   ],
   providers: [],
