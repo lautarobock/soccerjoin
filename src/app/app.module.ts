@@ -10,11 +10,15 @@ import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatSidenavModule, MatToolbarModule, MatButtonModule } from '@angular/material';
+import { LoginComponent } from './home/login/login.component';
+import { FooterComponent } from './home/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
