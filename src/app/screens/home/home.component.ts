@@ -10,7 +10,7 @@ import { UsersService } from '../../services/users.service';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private session: Session,
+    public session: Session,
     private userService: UsersService
   ) { }
 
