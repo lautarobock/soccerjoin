@@ -42,7 +42,7 @@ app.set('views', join(DIST_FOLDER, 'browser'));
   app.get('/api/**', (req, res) => { });
 */
 
-require("./server/config").createRoutes(app);
+require("./server/config").configure(app);
 
 // Server static files from /browser
 app.get('*.*', express.static(join(DIST_FOLDER, 'browser'), {

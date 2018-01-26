@@ -1,4 +1,5 @@
-<mat-nav-list>
+Strava login SUCCESSFUL!
+<!-- <mat-nav-list>
   <mat-list-item *ngFor="let item of data; last as last" (click)="showInfo(item)">
     <h4 mat-line>{{item.name}}</h4>
     <p mat-line>
@@ -13,7 +14,6 @@
 ZOOM: {{zoom}}
 <agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="satellite" (mapReady)="mapReady($event)">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-  <!-- <agm-marker *ngFor="let coord of details[0]?.data" [latitude]="coord[0]" [longitude]="coord[1]"></agm-marker> -->
 </agm-map>
 Count: {{details[0]?.data.length}}
 <table border="1" style="width: 50%">
@@ -33,6 +33,4 @@ Count: {{details[0]?.data.length}}
       </td>
     </tr>
   </tbody>
-</table>
-<!-- <pre>{{selected | json:2}}</pre> -->
-<!-- <pre>{{data | json:2}}</pre> -->
+</table> -->

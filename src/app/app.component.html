@@ -2,10 +2,11 @@
     <mat-sidenav mode="side" opened="false">Sidenav content</mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar color="primary">
-            <i class="fas fa-futbol" style="margin-right: 1em"></i>
+            <span routerLink="/home" style="cursor: pointer">
+                <i class="fas fa-futbol" style="margin-right: 1em"></i>
+            </span>
             Soccer Join
         </mat-toolbar>
         <router-outlet></router-outlet>
-        
     </mat-sidenav-content>
 </mat-sidenav-container>
