@@ -1,0 +1,57 @@
+{
+  "configVersion": 1,
+  "index": "https://lautarobock.github.io/soccerjoin-web/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://lautarobock.github.io/soccerjoin-web/favicon.ico",
+        "https://lautarobock.github.io/soccerjoin-web/index.html",
+        "https://lautarobock.github.io/soccerjoin-web/inline.331c540769dd2be2e794.bundle.js",
+        "https://lautarobock.github.io/soccerjoin-web/main.685786f111d604cf927a.bundle.js",
+        "https://lautarobock.github.io/soccerjoin-web/polyfills.7c4efb87d4ba5dbbc58c.bundle.js",
+        "https://lautarobock.github.io/soccerjoin-web/styles.6624fa348037e41c0ae9.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://lautarobock.github.io/soccerjoin-web/assets/lautemira.png",
+        "https://lautarobock.github.io/soccerjoin-web/assets/logo.ico",
+        "https://lautarobock.github.io/soccerjoin-web/assets/logo.png",
+        "https://lautarobock.github.io/soccerjoin-web/assets/torto.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "from-api",
+      "patterns": [
+        "\\/api\\/test"
+      ],
+      "strategy": "freshness",
+      "maxSize": 15,
+      "maxAge": 3600000,
+      "timeoutMs": 5000,
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "https://lautarobock.github.io/soccerjoin-web/inline.331c540769dd2be2e794.bundle.js": "8fe6fd57539a1a12d87261b9e02158e5d98765d2",
+    "https://lautarobock.github.io/soccerjoin-web/assets/lautemira.png": "1466c253d25b62d9ee61afe4266e1773c9cea628",
+    "https://lautarobock.github.io/soccerjoin-web/main.685786f111d604cf927a.bundle.js": "2196e3464d96549d08c2aef5255e3d9acaaecd7d",
+    "https://lautarobock.github.io/soccerjoin-web/assets/logo.ico": "500438157acd61177fbefe3e69ca9f62cd8d79f1",
+    "https://lautarobock.github.io/soccerjoin-web/polyfills.7c4efb87d4ba5dbbc58c.bundle.js": "b981fb72cc7adbd372b5b02405e590938a032a92",
+    "https://lautarobock.github.io/soccerjoin-web/assets/logo.png": "e680775e281cb1358179abf8bbd6154ff823333c",
+    "https://lautarobock.github.io/soccerjoin-web/styles.6624fa348037e41c0ae9.bundle.css": "c8a91d06004b86d74a2aa2eb9c4ebb9e35cfb711",
+    "https://lautarobock.github.io/soccerjoin-web/assets/torto.jpg": "5d4d18f706cacc3f8b579f7634fc5c33439891de",
+    "https://lautarobock.github.io/soccerjoin-web/favicon.ico": "500438157acd61177fbefe3e69ca9f62cd8d79f1",
+    "https://lautarobock.github.io/soccerjoin-web/index.html": "efc818fd4e3fdde4c722b4d6f53bf995a25c32d5"
+  }
+}

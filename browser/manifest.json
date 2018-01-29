@@ -1,0 +1,14 @@
+{
+    "name": "Soccer Join",
+    "short_name": "SoccerJoin",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#4caf50",
+    "theme_color": "#4caf50",
+    "icons": [
+      {
+        "src": "./assets/logo.png",
+        "sizes": "256x256"
+      }
+    ]
+  }
