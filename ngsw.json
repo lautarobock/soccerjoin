@@ -9,8 +9,8 @@
       "urls": [
         "https://lautarobock.github.io/soccerjoin-web/favicon.ico",
         "https://lautarobock.github.io/soccerjoin-web/index.html",
-        "https://lautarobock.github.io/soccerjoin-web/inline.67126e55c1e065b06ab3.bundle.js",
-        "https://lautarobock.github.io/soccerjoin-web/main.04fcbe3c0751c3b8bd70.bundle.js",
+        "https://lautarobock.github.io/soccerjoin-web/inline.108a3e536602a47ac541.bundle.js",
+        "https://lautarobock.github.io/soccerjoin-web/main.6157193e60e6a231e27a.bundle.js",
         "https://lautarobock.github.io/soccerjoin-web/polyfills.7c4efb87d4ba5dbbc58c.bundle.js",
         "https://lautarobock.github.io/soccerjoin-web/styles.6624fa348037e41c0ae9.bundle.css"
       ],
@@ -43,15 +43,15 @@
     }
   ],
   "hashTable": {
-    "https://lautarobock.github.io/soccerjoin-web/inline.67126e55c1e065b06ab3.bundle.js": "d5f6924d10033a3fffc0255d025d5683e218c96d",
+    "https://lautarobock.github.io/soccerjoin-web/inline.108a3e536602a47ac541.bundle.js": "e14215eaef2fd2ff4121d18338f82bfbe5adbd36",
     "https://lautarobock.github.io/soccerjoin-web/assets/lautemira.png": "1466c253d25b62d9ee61afe4266e1773c9cea628",
-    "https://lautarobock.github.io/soccerjoin-web/main.04fcbe3c0751c3b8bd70.bundle.js": "be6c4898d64a96382cf7d6bfca80350830fc49f8",
+    "https://lautarobock.github.io/soccerjoin-web/main.6157193e60e6a231e27a.bundle.js": "5029515ca17c30ea71ceee842d6bc538fa9bfcc4",
     "https://lautarobock.github.io/soccerjoin-web/assets/logo.ico": "500438157acd61177fbefe3e69ca9f62cd8d79f1",
     "https://lautarobock.github.io/soccerjoin-web/polyfills.7c4efb87d4ba5dbbc58c.bundle.js": "b981fb72cc7adbd372b5b02405e590938a032a92",
     "https://lautarobock.github.io/soccerjoin-web/assets/logo.png": "e680775e281cb1358179abf8bbd6154ff823333c",
     "https://lautarobock.github.io/soccerjoin-web/styles.6624fa348037e41c0ae9.bundle.css": "c8a91d06004b86d74a2aa2eb9c4ebb9e35cfb711",
     "https://lautarobock.github.io/soccerjoin-web/assets/torto.jpg": "5d4d18f706cacc3f8b579f7634fc5c33439891de",
     "https://lautarobock.github.io/soccerjoin-web/favicon.ico": "500438157acd61177fbefe3e69ca9f62cd8d79f1",
-    "https://lautarobock.github.io/soccerjoin-web/index.html": "07985489a48030615f5cb1f305d14dfacf284b99"
+    "https://lautarobock.github.io/soccerjoin-web/index.html": "40b645add11165a13d775da61018dc28553c5050"
   }
 }
