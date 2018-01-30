@@ -35,7 +35,8 @@ import { AuthGuard } from '../services/auth.guard';
       },
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: '**',

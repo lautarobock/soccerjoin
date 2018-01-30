@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginResponse, User } from '../domain/model';
 import { Session } from './session.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class UsersService {
@@ -12,11 +13,11 @@ export class UsersService {
   ) { }
 
   loginWithStrava(accesToken: string) {
-    return this.http.get<LoginResponse>(`/api/users/token?type=strava&access_token=${accesToken}`)
+    return this.http.get<LoginResponse>(`${environment.backendUrl}/api/users/token?type=strava&access_token=${accesToken}`)
   }
 
   me() {
-    return this.http.get<User>(`/api/users/me`, {
+    return this.http.get<User>(`${environment.backendUrl}/api/users/me`, {
       headers: {
         'x-access-token': this.session.token()
       }

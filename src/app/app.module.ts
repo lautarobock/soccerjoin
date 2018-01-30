@@ -32,7 +32,7 @@ import { ScreensModule } from './screens/screens.module';
     ScreensModule,
     RouterModule.forRoot([
       // { path: '', component: HomeComponent, pathMatch: 'full' }
-    ])
+    ], {useHash: false})
   ],
   providers: [],
   bootstrap: [AppComponent]
