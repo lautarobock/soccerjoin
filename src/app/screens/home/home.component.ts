@@ -11,7 +11,7 @@ import { Match } from '../../domain/model';
 })
 export class HomeComponent implements OnInit {
 
-  private matches: Match[];
+  matches: Match[];
 
   constructor(
     public session: Session,
