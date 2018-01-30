@@ -17,11 +17,7 @@ export class UsersService {
   }
 
   me() {
-    return this.http.get<User>(`${environment.backendUrl}/api/users/me`, {
-      headers: {
-        'x-access-token': this.session.token()
-      }
-    });
+    return this.http.get<User>(`${environment.backendUrl}/api/users/me`);
   }
   
 }

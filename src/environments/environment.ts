@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendUrl: 'https://soccerjoin.herokuapp.com'
+  backendUrl: 'http://localhost:3000'
 };

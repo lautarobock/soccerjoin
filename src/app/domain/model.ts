@@ -1,4 +1,5 @@
 export class User {
+    public _id: string;
     public name: string;
     public lastName: string;
     public sex: string;
@@ -21,4 +22,8 @@ export class LoginResponse {
     public token: string;
     public exp: number;
     public user: User;
+}
+
+export class Match {
+    public name;
 }

@@ -1,4 +1,11 @@
-<!-- <pre>{{session.loggedUser() | json:2}}</pre> -->
 <p>
   Welcome to SoccerJoin {{session.loggedUser()?.name}}!
 </p>
+<div *ngIf="!matches">
+  Loading
+</div>
+<div *ngIf="matches && !matches.length">
+  Ups, there is not matches yet, you can start <a mat-button routerLink="/strava/importer">importing from Strava!</a>
+
+</div>
+<pre *ngIf="matches && matches.length">{{matches|json:2}}</pre>

@@ -1,0 +1,41 @@
+<!-- <mat-nav-list>
+  <mat-list-item *ngFor="let item of data; last as last" (click)="showInfo(item)">
+    <h4 mat-line>{{item.name}}</h4>
+    <p mat-line>
+      {{item.type}} {{item.distance/1000|number}}Km on {{item.start_date | date}}
+    </p>
+    <button mat-icon-button>
+      <mat-icon>info</mat-icon>
+    </button>
+    <mat-divider *ngIf="!last"></mat-divider>
+  </mat-list-item>
+</mat-nav-list> -->
+<mat-form-field style="width: 500px">
+  <mat-select placeholder="Activities from strava" [(value)]="selected" (change)="showInfo(selected)">
+    <mat-option *ngFor="let item of data; last as last" [value]="item">
+      {{item.name}} {{item.type}} {{item.distance/1000|number}}Km on {{item.start_date | date}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="satellite" (mapReady)="mapReady($event)">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+<!-- Count: {{details[0]?.data.length}}
+<table border="1" style="width: 50%">
+  <thead>
+    <tr>
+      <th *ngFor="let stream of details">{{stream.type}}</th>
+      <th>Hora</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="details[0]">
+    <tr *ngFor="let row of details[0].data; index as idx">
+      <td *ngFor="let stream of details">
+        {{stream.data[idx]}}
+      </td>
+      <td>
+        {{time(selected.start_date, details[1].data[idx]) | date:'HH:mm:ss'}}
+      </td>
+    </tr>
+  </tbody>
+</table> -->
