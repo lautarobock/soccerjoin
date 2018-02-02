@@ -1,27 +1,36 @@
-<!-- <mat-nav-list>
-  <mat-list-item *ngFor="let item of data; last as last" (click)="showInfo(item)">
-    <h4 mat-line>{{item.name}}</h4>
-    <p mat-line>
-      {{item.type}} {{item.distance/1000|number}}Km on {{item.start_date | date}}
-    </p>
-    <button mat-icon-button>
-      <mat-icon>info</mat-icon>
-    </button>
-    <mat-divider *ngIf="!last"></mat-divider>
-  </mat-list-item>
-</mat-nav-list> -->
-<mat-form-field style="width: 500px">
+<mat-form-field style="width: 500px; max-width: 90%">
   <mat-select placeholder="Activities from strava" [(value)]="selected" (change)="showInfo(selected)">
     <mat-option *ngFor="let item of data; last as last" [value]="item">
-      {{item.name}} {{item.type}} {{item.distance/1000|number}}Km on {{item.start_date | date}}
+      {{item.name}} {{item.distance/1000|number}}Km on {{item.start_date | date:'EEE MM/dd/yy HH:mm'}} ({{item.type}})
     </mat-option>
   </mat-select>
 </mat-form-field>
+
 <agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="satellite" (mapReady)="mapReady($event)">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
-<!-- Count: {{details[0]?.data.length}}
-<table border="1" style="width: 50%">
+
+
+<mat-list *ngIf="activityFull">
+  <mat-list-item><b>Name:</b>&nbsp;{{activityFull.name}}</mat-list-item>
+  <mat-list-item><b>Type:</b>&nbsp;{{activityFull.type}}</mat-list-item>
+  <mat-list-item><b>Distance:</b>&nbsp;{{activityFull.distance / 1000 | number:'1.2-2'}} Km</mat-list-item>
+  <mat-list-item><b>Moving Time:</b>&nbsp;{{activityFull.moving_time/60 | number:'2.2-2'}} minutes</mat-list-item>
+  <mat-list-item><b>Elapsed Time:</b>&nbsp;{{activityFull.elapsed_time/60 | number:'2.2-2'}} minutes</mat-list-item>
+  <mat-list-item><b>Started:</b>&nbsp;{{activityFull.start_date | date:'EEEE MM/dd/yyyy HH:mm'}}</mat-list-item>
+  <mat-list-item><b>Average Speed:</b>&nbsp;{{activityFull.average_speed | number:'1.2-2'}} Km/h</mat-list-item>
+  <mat-list-item><b>Max Speed:</b>&nbsp;{{activityFull.max_speed | number:'1.2-2'}} Km/h</mat-list-item>
+  <mat-list-item><b>Average Heart Rate:</b>&nbsp;{{activityFull.average_heartrate}}</mat-list-item>
+  <mat-list-item><b>Max Heart Rate:</b>&nbsp;{{activityFull.max_heartrate}}</mat-list-item>
+  <mat-list-item><b>Calories:</b>&nbsp;{{activityFull.calories}}</mat-list-item>
+</mat-list>
+
+<button *ngIf="activityFull" (click)="import()" style="margin-left: auto; display: block" mat-raised-button color="primary">
+  <i class="fas fa-upload"></i> IMPORT
+</button>
+<!-- <pre>{{activityFull|json:2}}</pre> -->
+<!-- Count: {{details[0]?.data.length}} -->
+<!-- <table border="1" style="width: 50%">
   <thead>
     <tr>
       <th *ngFor="let stream of details">{{stream.type}}</th>

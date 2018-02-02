@@ -15,5 +15,9 @@ export class MatchesService {
   myMatches() {
     return this.http.get<Match[]>(`${environment.backendUrl}/api/matches?owner=${this.session.loggedUser()._id}`);
   }
+
+  create(match: Match) {
+    return this.http.post<Match>(`${environment.backendUrl}/api/matches`, match);
+  }
   
 }

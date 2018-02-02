@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Session } from '../../services/session.service';
+import { MatchesService } from '../../services/matches.service';
+import { Router } from '@angular/router';
 declare var google: any;
 
 @Component({
@@ -18,6 +20,7 @@ export class StravaImporterComponent implements OnInit {
   data: any;
   details = [];
   selected: any;
+  activityFull: any;
   lat = -34.649504;
   lng = -58.566103;
   heatmap: any;
@@ -25,7 +28,9 @@ export class StravaImporterComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private session: Session
+    private session: Session,
+    private matchesService: MatchesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -56,9 +61,42 @@ export class StravaImporterComponent implements OnInit {
         this.heatmap.setData(data[0].data.map(point => new google.maps.LatLng(point[0], point[1])));
       }
     );
+    this.http.get(`https://www.strava.com/api/v3/activities/${item.id}?access_token=${this.session.loggedUser().strava.access_token}`).subscribe(
+      (activity: any[]) => this.activityFull = activity
+    );
+    
   }
 
   time(date, offset) {
     return new Date(new Date(date).getTime() + offset * 1000);
+  }
+
+  import() {
+    this.matchesService.create({
+      name: this.activityFull.name,
+      strava: {
+        id: this.activityFull.id,
+        external_id: this.activityFull.external_id
+      },
+      averageHeartRate: this.activityFull.average_heartrate,
+      distance: this.activityFull.distance,
+      movingTime: this.activityFull.moving_time,
+      elapsedTime: this.activityFull.elapsed_time,
+      startDate: this.activityFull.start_date,
+      averageSpeed: this.activityFull.average_speed,
+      maxSpeed: this.activityFull.max_speed,
+      maxHeartRate: this.activityFull.max_heartrate,
+      calories: this.activityFull.calories,
+      center: null,
+      streams: {
+        time: this.details.find(d => d.type === 'time').data,
+        distance: this.details.find(d => d.type === 'distance').data,
+        heartRate: this.details.find(d => d.type === 'heartrate').data,
+        latlng: this.details.find(d => d.type === 'latlng').data.map(p => ({lat: p[0], lng: p[1]}))
+      }
+    }).subscribe(
+      response => this.router.navigate(['/home']),
+      err => console.error(err)
+    )
   }
 }

@@ -26,4 +26,29 @@ export class LoginResponse {
 
 export class Match {
     public name;
+    public strava: {
+        id: number;
+        external_id: string
+    };
+    public distance: number;
+    public movingTime: number;
+    public elapsedTime: number;
+    public startDate: Date;
+    public averageSpeed: number;
+    public maxSpeed: number;
+    public averageHeartRate: number;
+    public maxHeartRate: number;
+    public calories: number;
+    public center: Point;
+    public streams: {
+        time: number[],
+        distance: number[],
+        heartRate: number[],
+        latlng: Point[]
+    }
+}
+
+export class Point {
+    public lat: number;
+    public lng: number;
 }
