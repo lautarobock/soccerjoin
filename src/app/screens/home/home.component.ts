@@ -12,6 +12,7 @@ import { Match } from '../../domain/model';
 export class HomeComponent implements OnInit {
 
   matches: Match[];
+  allMatches: Match[];
 
   constructor(
     public session: Session,
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.matchesService.myMatches().subscribe(matches => this.matches = matches);
+    this.matchesService.allMatches().subscribe(matches => this.allMatches = matches);
   }
 
 }

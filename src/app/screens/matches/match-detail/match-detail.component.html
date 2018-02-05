@@ -1,0 +1,43 @@
+<mat-list>
+  <mat-list-item>
+    <img matListAvatar [src]="match.owner.pictureUrl" />
+    <h3 matLine>{{match.name}}</h3>
+    <p matLine>
+      <span> {{match.startDate | date}} </span>
+      <span> by {{match.owner.name}} {{match.owner.lastName}} </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+<agm-map #map [latitude]="match.center.lat" [longitude]="match.center.lng" [zoom]="22" mapTypeId="satellite" (mapReady)="mapReady($event)">
+  <agm-circle [latitude]="match.center.lat" [longitude]="match.center.lng" [radius]="1" [fillOpacity]="1" [fillColor]="'blue'"> 
+  </agm-circle>
+</agm-map>
+<mat-list>
+  <mat-list-item>
+    <form style="margin-top: 2em">
+        <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Moving time" value="{{match.movingTime / 60  | number:'2.0-0'}} min">
+      </mat-form-field>
+      <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Elapsed time" value="{{match.elapsedTime / 60  | number:'2.0-0'}} min">
+      </mat-form-field>
+      <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Avg PPM" value="{{match.averageHeartRate | number:'3.0-0'}}">
+      </mat-form-field>
+    </form>
+  </mat-list-item>
+  
+  <mat-list-item>
+    <form style="margin-top: 2em">
+      <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Distance" value="{{match.distance / 1000 | number:'1.2-2'}} Km"/>
+      </mat-form-field>
+      <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Avg Speed" value="{{match.averageSpeed | number:'1.2-2'}} Km/h"/>
+      </mat-form-field>
+      <mat-form-field style="width: 30%">
+        <input matInput readonly placeholder="Calories" value="{{match.calories | number:'1.0-0'}}"/>
+      </mat-form-field>
+    </form>
+  </mat-list-item>
+</mat-list>

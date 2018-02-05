@@ -7,7 +7,7 @@
 </mat-form-field>
 
 <agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="satellite" (mapReady)="mapReady($event)">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-circle *ngIf="activityFull" [latitude]="lat" [longitude]="lng" [radius]="1" [fillOpacity]="1" [fillColor]="'blue'"></agm-circle>
 </agm-map>
 
 

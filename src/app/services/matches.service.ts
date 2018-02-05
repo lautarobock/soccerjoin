@@ -16,8 +16,16 @@ export class MatchesService {
     return this.http.get<Match[]>(`${environment.backendUrl}/api/matches?owner=${this.session.loggedUser()._id}`);
   }
 
+  allMatches() {
+    return this.http.get<Match[]>(`${environment.backendUrl}/api/matches`);
+  }
+
   create(match: Match) {
     return this.http.post<Match>(`${environment.backendUrl}/api/matches`, match);
+  }
+
+  get(id: string) {
+    return this.http.get<Match>(`${environment.backendUrl}/api/matches/${id}`);
   }
   
 }

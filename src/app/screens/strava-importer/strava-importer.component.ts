@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Session } from '../../services/session.service';
 import { MatchesService } from '../../services/matches.service';
 import { Router } from '@angular/router';
+import { GeoService } from '../../services/geo.service';
+import { StravaService } from '../../services/strava.service';
 declare var google: any;
 
 @Component({
@@ -10,7 +12,7 @@ declare var google: any;
   templateUrl: './strava-importer.component.html',
   styles: [`
 agm-map {
-  height: 500px;
+  height: 350px;
 }
   `]
 })
@@ -21,8 +23,10 @@ export class StravaImporterComponent implements OnInit {
   details = [];
   selected: any;
   activityFull: any;
-  lat = -34.649504;
-  lng = -58.566103;
+  lat: number;
+  lng: number;
+  centerLat: number;
+  centerLng: number;
   heatmap: any;
   zoom = 22;
 
@@ -30,7 +34,9 @@ export class StravaImporterComponent implements OnInit {
     private http: HttpClient,
     private session: Session,
     private matchesService: MatchesService,
-    private router: Router
+    private router: Router,
+    private geoService: GeoService,
+    private stravaService: StravaService
   ) { }
 
   ngOnInit() {
@@ -39,29 +45,32 @@ export class StravaImporterComponent implements OnInit {
 
   mapReady(map) {
     this.heatmap = new google.maps.visualization.HeatmapLayer({ map });
+    this.geoService.last().then(coordinates => {
+      this.lat = coordinates.latitude;
+      this.lng = coordinates.longitude;
+    })
   }
 
   loadActivities() {
-    this.http.get(`https://www.strava.com/api/v3/athlete/activities?access_token=${this.session.loggedUser().strava.access_token}`).subscribe(
-      data => this.data = data
-    );
+    this.stravaService.myActivities().then(data => this.data = data);
   }
 
   showInfo(item) {
     this.selected = item;
-    this.http.get(`https://www.strava.com/api/v3/activities/${item.id}/streams/time,latlng,heartrate,temp?access_token=${this.session.loggedUser().strava.access_token}`).subscribe(
-      (data: any[]) => {
+    this.stravaService.streams(item.id).subscribe((data: any[]) => {
         this.details = data;
-        this.lat = data[0].data[0][0];
-        this.lng = data[0].data[0][1];
-
-        // let i = 0;
-        // const points = data[0].data.map(point => new google.maps.LatLng(point[0], point[1]));
-        // setInterval(() => this.heatmap.setData(points.slice(0,i++)), 100);
         this.heatmap.setData(data[0].data.map(point => new google.maps.LatLng(point[0], point[1])));
+        const point = data[0].data.reduce((prev, current) => {
+          return [
+            prev[0] + current[0],
+            prev[1] + current[1]
+          ]
+        });
+        this.lat = point[0] / data[0].data.length;
+        this.lng = point[1] / data[0].data.length;
       }
     );
-    this.http.get(`https://www.strava.com/api/v3/activities/${item.id}?access_token=${this.session.loggedUser().strava.access_token}`).subscribe(
+    this.stravaService.detail(item.id).subscribe(
       (activity: any[]) => this.activityFull = activity
     );
     
@@ -87,7 +96,10 @@ export class StravaImporterComponent implements OnInit {
       maxSpeed: this.activityFull.max_speed,
       maxHeartRate: this.activityFull.max_heartrate,
       calories: this.activityFull.calories,
-      center: null,
+      center: {
+        lat: this.lat,
+        lng: this.lng
+      },
       streams: {
         time: this.details.find(d => d.type === 'time').data,
         distance: this.details.find(d => d.type === 'distance').data,

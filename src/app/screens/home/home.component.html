@@ -1,36 +1,71 @@
-<div *ngIf="!matches">
-  Loading
-</div>
-<div *ngIf="matches && !matches.length">
+<!-- <div *ngIf="matches && !matches.length">
   <p>
     Welcome to SoccerJoin {{session.loggedUser()?.name}}!
   </p>
-  Ups, there is not matches yet, you can start
-  <a mat-button routerLink="/strava/importer">importing from Strava!</a>
+  
+</div> -->
+<mat-tab-group>
+  <mat-tab label="All">
+    <div *ngIf="!allMatches">
+      Loading
+    </div>
+    <div *ngIf="allMatches && !allMatches.length">
+      <h3 style="margin-left: auto;margin-right: auto;width: 310px;">
+        Ups, there is not matches yet, you can start
+      </h3>
+      <button mat-raised-button color="primary" style="margin-left: auto; margin-right: auto; display: block" routerLink="/strava/importer">
+        <i class="fas fa-upload"></i> importing from Strava!
+      </button>
+    </div>
+    <mat-list *ngIf="allMatches && allMatches.length">
+      <mat-list-item *ngFor="let match of matches" routerLink="/matches/{{match._id}}">
+        <img matListAvatar [src]="match.owner.pictureUrl" />
+        <h3 matLine>{{match.name}}</h3>
+        <p matLine>
+          {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
+        </p>
+        <p matLine>
+          {{match.distance / 1000 | number:'1.2-2'}} Km
+          <span style="margin-left: 1em">{{match.elapsedTime / 60 | number:'2.0-0'}} min</span>
+          <span style="margin-left: 1em">{{match.calories}} cal</span>
+          <span style="margin-left: 1em">{{match.averageHeartRate | number:'2.0-0'}} ppm</span>
+        </p>
+        <button mat-icon-button>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+  <mat-tab label="Mine">
+    <div *ngIf="matches && !matches.length">
+      <h3 style="margin-left: auto;margin-right: auto;width: 310px;">
+        Ups, there is not matches yet, you can start
+      </h3>
+      <button mat-raised-button color="primary" style="margin-left: auto; margin-right: auto; display: block" routerLink="/strava/importer">
+        <i class="fas fa-upload"></i> importing from Strava!
+      </button>
+    </div>
+    <mat-list *ngIf="matches && matches.length">
+      <mat-list-item *ngFor="let match of matches" routerLink="/matches/{{match._id}}">
+        <img matListAvatar [src]="match.owner.pictureUrl" />
+        <h3 matLine>{{match.name}}</h3>
+        <p matLine>
+          {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
+        </p>
+        <p matLine>
+          {{match.distance / 1000 | number:'1.2-2'}} Km
+          <span style="margin-left: 1em">{{match.elapsedTime / 60 | number:'2.0-0'}} min</span>
+          <span style="margin-left: 1em">{{match.calories}} cal</span>
+          <span style="margin-left: 1em">{{match.averageHeartRate | number:'2.0-0'}} ppm</span>
+        </p>
+        <button mat-icon-button>
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-tab>
+</mat-tab-group>
 
-</div>
-<!-- <pre *ngIf="matches && matches.length">{{matches|json:2}}</pre> -->
-<mat-list *ngIf="matches && matches.length">
-  <mat-list-item *ngFor="let match of matches" routerLink="/matches/${match._id}">
-    <h3 matLine>{{match.name}}</h3>
-    <!-- <p matLine>
-      {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}} {{match.distance / 1000 | number:'1.2-2'}} Km {{match.elapsedTime / 60 |
-      number:'2.2-2'}} minutes
-    </p> -->
-    <p matLine>
-      {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
-    </p>
-    <p matLine>
-      {{match.distance / 1000 | number:'1.2-2'}} Km
-      <span style="margin-left: 1em">{{match.elapsedTime / 60 | number:'2.0-0'}} min</span>
-      <span style="margin-left: 1em">{{match.calories}} cal</span>
-      <span style="margin-left: 1em">{{match.averageHeartRate | number:'2.0-0'}} ppm</span>
-    </p>
-    <button mat-icon-button >
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
-  </mat-list-item>
-</mat-list>
-<button mat-mini-fab style="position: absolute; bottom: 1em; right: 1em" routerLink="/strava/importer">
+<button mat-fab style="position: absolute; bottom: 1em; right: 1em" routerLink="/strava/importer">
   <i class="fas fa-plus"></i>
 </button>

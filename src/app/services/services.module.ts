@@ -6,6 +6,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth.guard';
 import { MatchesService } from './matches.service';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { GeoService } from './geo.service';
+import { StravaService } from './strava.service';
 
 @NgModule({
   imports: [
@@ -19,6 +21,8 @@ import { AuthInterceptorService } from './auth-interceptor.service';
     UsersService,
     AuthGuard,
     MatchesService,
+    GeoService,
+    StravaService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
