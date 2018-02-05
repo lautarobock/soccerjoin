@@ -46,6 +46,7 @@ export class Match {
         heartRate: number[],
         latlng: Point[]
     }
+    public owner: User;
 }
 
 export class Point {

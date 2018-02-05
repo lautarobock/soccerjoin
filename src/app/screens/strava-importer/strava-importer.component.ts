@@ -105,7 +105,8 @@ export class StravaImporterComponent implements OnInit {
         distance: this.details.find(d => d.type === 'distance').data,
         heartRate: this.details.find(d => d.type === 'heartrate').data,
         latlng: this.details.find(d => d.type === 'latlng').data.map(p => ({lat: p[0], lng: p[1]}))
-      }
+      },
+      owner: undefined
     }).subscribe(
       response => this.router.navigate(['/home']),
       err => console.error(err)
