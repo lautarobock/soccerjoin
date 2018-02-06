@@ -21,8 +21,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.matchesService.myMatches().subscribe(matches => this.matches = matches);
-    this.matchesService.allMatches().subscribe(matches => this.allMatches = matches);
+    // this.matchesService.myMatches().subscribe(matches => this.matches = matches);
+    this.matchesService.allMatches().subscribe(matches => {
+      this.allMatches = matches;
+      this.matches = matches.filter(match => match.owner._id.toString() === this.session.loggedUser()._id.toString());
+    });
   }
 
 }

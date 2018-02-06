@@ -26,7 +26,7 @@
     }],
     "dataGroups": [{
         "name": "from-api",
-        "urls": ["/api/test"],
+        "urls": ["https://soccerjoin.herokuapp.com/api/matches", "https://soccerjoin.herokuapp.com/api/users"],
         "cacheConfig": {
             "strategy": "freshness",
             "maxSize": 15,

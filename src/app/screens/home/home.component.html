@@ -18,7 +18,7 @@
       </button>
     </div>
     <mat-list *ngIf="allMatches && allMatches.length">
-      <mat-list-item *ngFor="let match of matches" routerLink="/matches/{{match._id}}">
+      <mat-list-item *ngFor="let match of allMatches" routerLink="/matches/{{match._id}}">
         <img matListAvatar [src]="match.owner.pictureUrl" />
         <h3 matLine>{{match.name}}</h3>
         <p matLine>

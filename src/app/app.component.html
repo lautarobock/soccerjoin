@@ -3,9 +3,13 @@
     <mat-sidenav-content>
         <mat-toolbar color="primary">
             <span routerLink="/home" style="cursor: pointer">
-                <i class="fas fa-futbol" style="margin-right: 1em"></i>
+                <i class="fas fa-home"></i>
             </span>
-            Soccer Join
+            <span  style="margin-left: 1em">Soccer Join</span>
+
+            <span *ngIf="loading"  style="margin-left: auto">
+                <i class="fas fa-futbol fa-pulse" ></i>
+            </span>
         </mat-toolbar>
         <router-outlet *ngIf="!session.token() || session.loggedUser()"></router-outlet>
     </mat-sidenav-content>
