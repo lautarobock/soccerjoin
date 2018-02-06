@@ -7,8 +7,11 @@
             </span>
             <span  style="margin-left: 1em">Soccer Join</span>
 
-            <span *ngIf="loading"  style="margin-left: auto">
+            <div *ngIf="loading" style="margin-left: auto">
                 <i class="fas fa-futbol fa-pulse" ></i>
+            </div>
+            <span *ngIf="!loading && action"  style="margin-left: auto" (click)="action.click()">
+                <i [class]="action.styleName" [title]="action.text" ></i>
             </span>
         </mat-toolbar>
         <router-outlet *ngIf="!session.token() || session.loggedUser()"></router-outlet>

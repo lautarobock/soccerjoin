@@ -25,6 +25,7 @@ export class LoginResponse {
 }
 
 export class Match {
+    public _id: string;
     public name;
     public strava: {
         id: number;
@@ -47,6 +48,14 @@ export class Match {
         latlng: Point[]
     }
     public owner: User;
+    public likes: Like[];
+}
+
+export class Like {
+    date: Date;
+    name: string;
+    pictureUrl: string;
+    owner: User | string;
 }
 
 export class Point {

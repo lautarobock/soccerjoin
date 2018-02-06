@@ -20,7 +20,10 @@
     <mat-list *ngIf="allMatches && allMatches.length">
       <mat-list-item *ngFor="let match of allMatches" routerLink="/matches/{{match._id}}">
         <img matListAvatar [src]="match.owner.pictureUrl" />
-        <h3 matLine>{{match.name}}</h3>
+        <h3 matLine>
+          {{match.name}}
+          <span style="margin-left: 1em" *ngIf="match.likes.length"><i class="fas fa-thumbs-up"></i> {{match.likes.length}}</span>
+        </h3>
         <p matLine>
           {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
         </p>

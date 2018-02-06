@@ -27,5 +27,13 @@ export class MatchesService {
   get(id: string) {
     return this.http.get<Match>(`${environment.backendUrl}/api/matches/${id}`);
   }
+
+  like(match: Match) {
+    return this.http.post<void>(`${environment.backendUrl}/api/matches/${match._id}/like`, {});
+  }
+
+  unlike(match: Match) {
+    return this.http.delete<void>(`${environment.backendUrl}/api/matches/${match._id}/like`, {});
+  }
   
 }
