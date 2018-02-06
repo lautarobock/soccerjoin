@@ -5,6 +5,7 @@ import { MatchesService } from '../../services/matches.service';
 import { Router } from '@angular/router';
 import { GeoService } from '../../services/geo.service';
 import { StravaService } from '../../services/strava.service';
+import { Match } from '../../domain/model';
 declare var google: any;
 
 @Component({
@@ -107,7 +108,7 @@ export class StravaImporterComponent implements OnInit {
         latlng: this.details.find(d => d.type === 'latlng').data.map(p => ({lat: p[0], lng: p[1]}))
       },
       owner: undefined
-    }).subscribe(
+    } as Match).subscribe(
       response => this.router.navigate(['/home']),
       err => console.error(err)
     )
