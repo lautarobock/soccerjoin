@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { UsersService } from '../../services/users.service';
 import { Session } from '../../services/session.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'sj-strava',
@@ -16,7 +17,8 @@ export class StravaComponent implements OnInit {
     private http: HttpClient,
     private userService: UsersService,
     private session: Session,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -26,11 +28,26 @@ export class StravaComponent implements OnInit {
         data => {
           // this.token = data;
           // this.loadActivities();
-          this.userService.loginWithStrava(data.access_token).subscribe(response => {
-            this.session.registerToken(response.token);
-            this.session.registerUser(response.user);
-            this.router.navigate(['/home']);
-          });
+          this.userService.loginWithStrava(data.access_token).subscribe(
+            response => {
+              this.session.registerToken(response.token);
+              this.session.registerUser(response.user);
+              this.router.navigate(['/home']);
+            },
+            (err: HttpErrorResponse) => {
+              if (err.status === 404) {
+                this.userService.signinWithStrava(data.access_token).subscribe(
+                  response => {
+                    this.session.registerToken(response.token);
+                    this.session.registerUser(response.user);
+                    this.router.navigate(['/home']);
+                  }
+                );
+              } else {
+                this.snackBar.open(err.message, 'CLOSE');  
+              }
+            }
+          );
         },
         err => console.error(err)
         );

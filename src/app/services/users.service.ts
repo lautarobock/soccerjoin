@@ -12,8 +12,14 @@ export class UsersService {
     private session: Session
   ) { }
 
-  loginWithStrava(accesToken: string) {
-    return this.http.get<LoginResponse>(`${environment.backendUrl}/api/users/token?type=strava&access_token=${accesToken}`)
+  loginWithStrava(accessToken: string) {
+    return this.http.get<LoginResponse>(`${environment.backendUrl}/api/users/token?type=strava&access_token=${accessToken}`)
+  }
+
+  signinWithStrava(accessToken: string) {
+    return this.http.post<LoginResponse>(`${environment.backendUrl}/api/users/token?type=strava&access_token=${accessToken}`, {
+      access_token: accessToken
+    });
   }
 
   me() {
