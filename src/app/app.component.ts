@@ -7,6 +7,7 @@ import { Router, NavigationEnd, NavigationStart, NavigationCancel } from '@angul
 import { HttpClient } from '@angular/common/http';
 import { SpinnerService } from './services/spinner.service';
 import { Subject } from 'rxjs/Subject';
+import { PromptUpdateService } from './updates/prompt-update.service';
 
 @Injectable()
 export class ToolbarService {
@@ -43,7 +44,8 @@ export class AppComponent implements OnInit {
     private geoService: GeoService,
     private router: Router,
     private spinner: SpinnerService,
-    private toolbarService: ToolbarService
+    private toolbarService: ToolbarService,
+    private promptUpdateService: PromptUpdateService
   ) { }
 
   ngOnInit() {

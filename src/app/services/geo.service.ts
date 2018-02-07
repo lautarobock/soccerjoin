@@ -10,7 +10,6 @@ export class GeoService {
   }
 
   private loadPosition(): Promise<Position> {
-    console.log('LOAD POS');
     return new Promise((resolve, reject) => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(position => resolve(position));

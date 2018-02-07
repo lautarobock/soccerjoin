@@ -13,6 +13,7 @@ import { FooterComponent } from './home/footer/footer.component';
 
 import { ServicesModule } from './services/services.module';
 import { ScreensModule } from './screens/screens.module';
+import { UpdatesModule } from './updates/updates.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ScreensModule } from './screens/screens.module';
     BrowserAnimationsModule,
     ServicesModule,
     ScreensModule,
+    UpdatesModule,
     RouterModule.forRoot([
       // { path: '', component: HomeComponent, pathMatch: 'full' }
     ], {useHash: false})
