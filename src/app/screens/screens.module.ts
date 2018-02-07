@@ -11,6 +11,7 @@ import { StravaImporterComponent } from './strava-importer/strava-importer.compo
 import { MatchDetailComponent } from './matches/match-detail/match-detail.component';
 import { MatchResolver } from './matches/match-resolver.service';
 import { FormsModule } from '@angular/forms';
+import { MatchListComponent } from './matches/match-list/match-list.component';
 
 @NgModule({
   imports: [
@@ -80,7 +81,8 @@ import { FormsModule } from '@angular/forms';
     StravaComponent,
     HomeComponent,
     StravaImporterComponent,
-    MatchDetailComponent
+    MatchDetailComponent,
+    MatchListComponent
   ],
   providers: [
     MatchResolver

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Like, Match } from '../../../domain/model';
-import { MatSliderChange, MatSlideToggleChange } from '@angular/material';
+import { MatSliderChange, MatSlideToggleChange, MatSnackBar } from '@angular/material';
 import { ToolbarService } from '../../../app.component';
 import { Session } from '../../../services/session.service';
 import { MatchesService } from '../../../services/matches.service';
@@ -26,12 +26,16 @@ export class MatchDetailComponent implements OnInit {
   currentTime = 0;
   pointRadius = 10;
   showCentre = true;
+  availableJoins: Match[];
+  isLike: boolean;
+  isMine: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private toolbarService: ToolbarService,
     private session: Session,
-    private matchesService: MatchesService
+    private matchesService: MatchesService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -39,13 +43,16 @@ export class MatchDetailComponent implements OnInit {
       this.match = routeData.match;
       this.maxTime = this.match.streams.time.length - 1;
       this.currentTime = this.maxTime;
-      if (this.match.owner._id === this.session.loggedUser()._id) {
+      this.isMine = this.match.owner._id === this.session.loggedUser()._id;
+      if (this.isMine) {
         this.toolbarService.set('fas fa-edit', 'Edit Match', () => console.log('edit'));
-      } else if (this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined) {
-        this.toolbarService.set('fas fa-thumbs-up', 'I don\'t like it', () => this.unlike());
       } else {
-        this.toolbarService.set('far fa-thumbs-up', 'I like it', () => this.like());
+        // this.matchesService.myMatches().subscribe(myMatches => {
+        //   // les than 3 hours
+        //   this.availableJoins = myMatches.filter(match => Math.abs(new Date(match.startDate).getTime() - new Date(this.match.startDate).getTime()) < 3 * 60 * 60 * 1000);
+        // });
       }
+      this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
     });
     
   }
@@ -68,12 +75,21 @@ export class MatchDetailComponent implements OnInit {
 
   }
 
+  likeMyself() {
+    this.snackBar.open('sure? like it to yourself? this is not gonna happen', '', {
+      duration: 2000
+    });
+  }
+
+  toDate(ms: number) {
+    return new Date(0,0,0,0,0,0,ms);
+  }
+
   private unlike() {
     this.matchesService.unlike(this.match).subscribe(() => {
       const idx = this.match.likes.findIndex(like => like.owner === this.session.loggedUser()._id);
       this.match.likes.splice(idx, 1);
-      this.toolbarService.clear();
-      this.toolbarService.set('far fa-thumbs-up', 'I Like it', () => this.like());
+      this.isLike = false;
     });
   }
 
@@ -85,8 +101,7 @@ export class MatchDetailComponent implements OnInit {
         pictureUrl: this.session.loggedUser().pictureUrl,
         owner: this.session.loggedUser()._id
       });
-      this.toolbarService.clear();
-      this.toolbarService.set('fas fa-thumbs-up', 'I don\'t like it', () => this.unlike());
+      this.isLike = true;
     });
   }
 }

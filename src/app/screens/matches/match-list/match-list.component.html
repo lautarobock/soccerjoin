@@ -1,0 +1,22 @@
+<mat-list>
+  <mat-list-item *ngFor="let match of matches" routerLink="/matches/{{match._id}}">
+    <img matListAvatar [src]="match.owner.pictureUrl" />
+    <h3 matLine>
+      {{match.name}}
+      <span style="margin-left: 1em" *ngIf="match.likes.length">
+        <i class="fas fa-thumbs-up"></i> {{match.likes.length}}</span>
+    </h3>
+    <p matLine>
+      {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
+    </p>
+    <p matLine>
+      {{match.distance / 1000 | number:'1.2-2'}} Km
+      <span style="margin-left: 1em">{{match.elapsedTime / 60 | number:'2.0-0'}} min</span>
+      <span style="margin-left: 1em">{{match.calories}} cal</span>
+      <span style="margin-left: 1em">{{match.averageHeartRate | number:'2.0-0'}} ppm</span>
+    </p>
+    <button mat-icon-button>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

@@ -2,8 +2,20 @@
   <mat-list-item>
     <img matListAvatar [src]="match.owner.pictureUrl" />
     <h3 matLine>
-      {{match.name}} 
-      <span style="float: right" *ngIf="match.likes.length"><i class="fas fa-thumbs-up"></i> {{match.likes.length}}</span>
+      {{match.name}}
+      <span *ngIf="!isMine">
+        <span *ngIf="isLike" style="float: right" (click)="unlike()">
+          <i class="fas fa-thumbs-up"></i> {{match.likes.length}}
+        </span>
+        <span *ngIf="!isLike" style="float: right" (click)="like()">
+          <i class="far fa-thumbs-up"></i> {{match.likes.length}}
+        </span>
+      </span>
+      <span *ngIf="isMine">
+        <span style="float: right" (click)="likeMyself()">
+          <i class="far fa-thumbs-up"></i> {{match.likes.length}}
+        </span>
+      </span>
     </h3>
     <p matLine>
       <span> {{match.startDate | date}} </span>
@@ -12,7 +24,8 @@
   </mat-list-item>
 </mat-list>
 <agm-map #map [latitude]="match.center.lat" [longitude]="match.center.lng" [zoom]="22" mapTypeId="satellite" (mapReady)="mapReady($event)">
-  <agm-circle *ngIf="showCentre" [latitude]="match.center.lat" [longitude]="match.center.lng" [radius]="1" [fillOpacity]="1" [fillColor]="'blue'">
+  <agm-circle *ngIf="showCentre" [latitude]="match.center.lat" [longitude]="match.center.lng" [radius]="1" [fillOpacity]="1"
+    [fillColor]="'blue'">
   </agm-circle>
 </agm-map>
 <mat-expansion-panel>
@@ -24,7 +37,7 @@
       configure map
     </mat-panel-description>
   </mat-expansion-panel-header>
-  Time ({{match.streams.time[currentTime] * 1000  | date:'mm:ss'}} min)
+  Time ({{toDate(match.streams.time[currentTime] * 1000) | date:'HH:mm:ss'}})
   <mat-slider [min]="0" [max]="maxTime" [(ngModel)]="currentTime" (change)="currentTimeChange($event)" style="width: 100%"></mat-slider>
   Radius
   <mat-slider [thumb-label]="true" [min]="0" [max]="20" [(ngModel)]="pointRadius" (change)="radiusChange($event)" style="width: 50%"></mat-slider>
@@ -59,3 +72,5 @@
     </form>
   </mat-list-item>
 </mat-list>
+
+<!-- <sj-match-list *ngIf="availableJoins && availableJoins.length" [matches]="availableJoins"></sj-match-list> -->
