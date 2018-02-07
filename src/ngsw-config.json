@@ -1,6 +1,7 @@
 {
-    "index": "/index.html",
-    "assetGroups": [{
+  "index": "/index.html",
+  "assetGroups": [
+    {
       "name": "app",
       "installMode": "prefetch",
       "resources": {
@@ -14,7 +15,8 @@
           "/*.chunk.js"
         ]
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
@@ -23,15 +25,31 @@
           "/assets/**"
         ]
       }
-    }],
-    "dataGroups": [{
-        "name": "from-api",
-        "urls": ["https://soccerjoin.herokuapp.com/api/matches", "https://soccerjoin.herokuapp.com/api/users"],
-        "cacheConfig": {
-            "strategy": "freshness",
-            "maxSize": 15,
-            "maxAge": "1h",
-            "timeout": "5s"
-        }
-    }]
-  }
+    },
+    {
+      "name": "profile",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "https://graph.facebook.com/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "from-api",
+      "urls": [
+        "https://soccerjoin.herokuapp.com/api/matches",
+        "https://soccerjoin.herokuapp.com/api/users"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 15,
+        "maxAge": "1h",
+        "timeout": "5s"
+      }
+    }
+  ]
+}

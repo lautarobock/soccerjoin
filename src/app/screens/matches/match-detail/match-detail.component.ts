@@ -5,6 +5,7 @@ import { MatSliderChange, MatSlideToggleChange, MatSnackBar } from '@angular/mat
 import { ToolbarService } from '../../../app.component';
 import { Session } from '../../../services/session.service';
 import { MatchesService } from '../../../services/matches.service';
+import { JoinDialog } from '../join-dialog/join-dialog.component';
 declare var google: any;
 
 @Component({
@@ -26,16 +27,18 @@ export class MatchDetailComponent implements OnInit {
   currentTime = 0;
   pointRadius = 10;
   showCentre = true;
-  availableJoins: Match[];
+  joinMatches: Match[];
   isLike: boolean;
   isMine: boolean;
+  isJoin: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private toolbarService: ToolbarService,
     private session: Session,
     private matchesService: MatchesService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private joinDialog: JoinDialog
   ) { }
 
   ngOnInit() {
@@ -46,13 +49,21 @@ export class MatchDetailComponent implements OnInit {
       this.isMine = this.match.owner._id === this.session.loggedUser()._id;
       if (this.isMine) {
         this.toolbarService.set('fas fa-edit', 'Edit Match', () => console.log('edit'));
-      } else {
-        // this.matchesService.myMatches().subscribe(myMatches => {
-        //   // les than 3 hours
-        //   this.availableJoins = myMatches.filter(match => Math.abs(new Date(match.startDate).getTime() - new Date(this.match.startDate).getTime()) < 3 * 60 * 60 * 1000);
-        // });
       }
       this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
+      if (this.match.join) {
+        
+        Promise.all(
+          this.match.join.matches
+            .filter(m => m !== this.match._id)
+            .map(match => this.matchesService.get(match as string).toPromise())
+        )
+        .then(matches => {
+          this.joinMatches = matches;
+          this.isJoin = this.joinMatches.find(match => match.owner._id === this.session.loggedUser()._id) !== undefined;
+        })
+      }
+      
     });
     
   }
@@ -85,7 +96,7 @@ export class MatchDetailComponent implements OnInit {
     return new Date(0,0,0,0,0,0,ms);
   }
 
-  private unlike() {
+  unlike() {
     this.matchesService.unlike(this.match).subscribe(() => {
       const idx = this.match.likes.findIndex(like => like.owner === this.session.loggedUser()._id);
       this.match.likes.splice(idx, 1);
@@ -93,7 +104,7 @@ export class MatchDetailComponent implements OnInit {
     });
   }
 
-  private like() {
+  like() {
     this.matchesService.like(this.match).subscribe(() => {
       this.match.likes.push({
         date: new Date(),
@@ -103,5 +114,16 @@ export class MatchDetailComponent implements OnInit {
       });
       this.isLike = true;
     });
+  }
+
+  join() {
+    this.joinDialog.open(this.match).afterClosed().subscribe(
+      isJoin => {
+        console.log('isJoin', isJoin);
+        if (isJoin) {
+
+        }
+      }
+    );
   }
 }

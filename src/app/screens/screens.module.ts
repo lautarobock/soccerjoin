@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { StravaComponent } from './strava/strava.component';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule, MatCardModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../services/auth.guard';
@@ -12,6 +12,7 @@ import { MatchDetailComponent } from './matches/match-detail/match-detail.compon
 import { MatchResolver } from './matches/match-resolver.service';
 import { FormsModule } from '@angular/forms';
 import { MatchListComponent } from './matches/match-list/match-list.component';
+import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dialog.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,8 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
     MatSlideToggleModule,
     MatSliderModule,
     MatSnackBarModule,
+    MatDialogModule,
+    MatCardModule,
     AgmCoreModule.forRoot({
       libraries: ['visualization'],
       apiKey: 'AIzaSyAp9Ii0KhgZ435TgTy0JZsMLekx4087Bfg' // SoccerJoin proyect and app
@@ -82,10 +85,15 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
     HomeComponent,
     StravaImporterComponent,
     MatchDetailComponent,
-    MatchListComponent
+    MatchListComponent,
+    JoinDialogComponent
+  ],
+  entryComponents: [
+    JoinDialogComponent
   ],
   providers: [
-    MatchResolver
+    MatchResolver,
+    JoinDialog
   ]
 })
 export class ScreensModule { }

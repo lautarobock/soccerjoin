@@ -1,0 +1,20 @@
+<p>Based on the time and locations these are the available matches for join</p>
+<mat-list>
+  <mat-list-item *ngFor="let match of availableJoins" (click)="accept(match)">
+    <h3 matLine>
+      {{match.name}}
+    </h3>
+    <p matLine>
+      {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}
+    </p>
+    <p matLine>
+      {{match.distance / 1000 | number:'1.2-2'}} Km
+      <span style="margin-left: 1em">{{match.elapsedTime / 60 | number:'2.0-0'}} min</span>
+      <span style="margin-left: 1em">{{match.calories}} cal</span>
+      <span style="margin-left: 1em">{{match.averageHeartRate | number:'2.0-0'}} ppm</span>
+    </p>
+    <button mat-icon-button>
+      <mat-icon>check</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

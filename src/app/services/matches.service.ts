@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Session } from './session.service';
-import { Match } from '../domain/model';
+import { Match, Join } from '../domain/model';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -34,6 +34,10 @@ export class MatchesService {
 
   unlike(match: Match) {
     return this.http.delete<void>(`${environment.backendUrl}/api/matches/${match._id}/like`, {});
+  }
+
+  join(match: Match, to: Match) {
+    return this.http.post<Join>(`${environment.backendUrl}/api/matches/${match._id}/join/${to._id}`, {});
   }
   
 }

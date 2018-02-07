@@ -10,10 +10,19 @@
         <span *ngIf="!isLike" style="float: right" (click)="like()">
           <i class="far fa-thumbs-up"></i> {{match.likes.length}}
         </span>
+        <span *ngIf="isJoin" style="float: right; margin-right: 1em" (click)="unjoin()">
+          <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
+        </span>
+        <span *ngIf="!isJoin" style="float: right; margin-right: 1em" (click)="join()">
+          <i class="far fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
+        </span>
       </span>
       <span *ngIf="isMine">
         <span style="float: right" (click)="likeMyself()">
           <i class="far fa-thumbs-up"></i> {{match.likes.length}}
+        </span>
+        <span style="float: right; margin-right: 1em">
+          <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
         </span>
       </span>
     </h3>
@@ -72,5 +81,88 @@
     </form>
   </mat-list-item>
 </mat-list>
+<!-- <mat-divider style="margin-top: 2em"></mat-divider> -->
+<mat-expansion-panel *ngIf="joinMatches" displayMode="flat" style="margin-top: 2em">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Joined
+    </mat-panel-title>
+    <mat-panel-description>
+      Others players in the same match
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div *ngFor="let joinedMatch of joinMatches">
+    <mat-list>
+        <mat-list-item>
+          <h3 matLine>{{joinedMatch.owner.name}}</h3>
+        </mat-list-item>
+    </mat-list>
+    
+    <mat-list>
+      <mat-list-item>
+        <form style="margin-top: 2em">
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Moving time" value="{{joinedMatch.movingTime / 60  | number:'2.0-0'}} min">
+          </mat-form-field>
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Elapsed time" value="{{joinedMatch.elapsedTime / 60  | number:'2.0-0'}} min">
+          </mat-form-field>
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Avg PPM" value="{{joinedMatch.averageHeartRate | number:'3.0-0'}}">
+          </mat-form-field>
+        </form>
+      </mat-list-item>
 
-<!-- <sj-match-list *ngIf="availableJoins && availableJoins.length" [matches]="availableJoins"></sj-match-list> -->
+      <mat-list-item>
+        <form style="margin-top: 2em">
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Distance" value="{{joinedMatch.distance / 1000 | number:'1.2-2'}} Km" />
+          </mat-form-field>
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Avg Speed" value="{{joinedMatch.averageSpeed | number:'1.2-2'}} Km/h" />
+          </mat-form-field>
+          <mat-form-field style="width: 30%">
+            <input matInput readonly placeholder="Calories" value="{{joinedMatch.calories | number:'1.0-0'}}" />
+          </mat-form-field>
+        </form>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-expansion-panel>
+<!-- <div *ngIf="joinMatches">
+  <h4>Joined</h4>
+  <mat-card *ngFor="let joinedMatch of joinMatches">
+    <mat-card-header>{{joinedMatch.owner.name}}</mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <form style="margin-top: 2em">
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Moving time" value="{{joinedMatch.movingTime / 60  | number:'2.0-0'}} min">
+            </mat-form-field>
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Elapsed time" value="{{joinedMatch.elapsedTime / 60  | number:'2.0-0'}} min">
+            </mat-form-field>
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Avg PPM" value="{{joinedMatch.averageHeartRate | number:'3.0-0'}}">
+            </mat-form-field>
+          </form>
+        </mat-list-item>
+
+        <mat-list-item>
+          <form style="margin-top: 2em">
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Distance" value="{{joinedMatch.distance / 1000 | number:'1.2-2'}} Km" />
+            </mat-form-field>
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Avg Speed" value="{{joinedMatch.averageSpeed | number:'1.2-2'}} Km/h" />
+            </mat-form-field>
+            <mat-form-field style="width: 30%">
+              <input matInput readonly placeholder="Calories" value="{{joinedMatch.calories | number:'1.0-0'}}" />
+            </mat-form-field>
+          </form>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div> -->

@@ -49,6 +49,7 @@ export class Match {
     }
     public owner: User;
     public likes: Like[];
+    public join: Join;
 }
 
 export class Like {
@@ -61,4 +62,8 @@ export class Like {
 export class Point {
     public lat: number;
     public lng: number;
+}
+
+export class Join {
+    public matches: (Match | string)[]
 }
