@@ -23,4 +23,8 @@ export class SpinnerService {
     }
   }
 
+  current() {
+    return this.count;
+  }
+
 }

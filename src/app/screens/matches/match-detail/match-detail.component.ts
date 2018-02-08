@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Like, Match } from '../../../domain/model';
 import { MatSliderChange, MatSlideToggleChange, MatSnackBar } from '@angular/material';
-import { ToolbarService } from '../../../app.component';
 import { Session } from '../../../services/session.service';
 import { MatchesService } from '../../../services/matches.service';
 import { JoinDialog } from '../join-dialog/join-dialog.component';
+import { Action } from '../../toolbar/toolbar.component';
 declare var google: any;
 
 @Component({
@@ -31,10 +31,10 @@ export class MatchDetailComponent implements OnInit {
   isLike: boolean;
   isMine: boolean;
   isJoin: boolean;
+  actions: Action[];
 
   constructor(
     private route: ActivatedRoute,
-    private toolbarService: ToolbarService,
     private session: Session,
     private matchesService: MatchesService,
     private snackBar: MatSnackBar,
@@ -48,7 +48,18 @@ export class MatchDetailComponent implements OnInit {
       this.currentTime = this.maxTime;
       this.isMine = this.match.owner._id === this.session.loggedUser()._id;
       if (this.isMine) {
-        this.toolbarService.set('fas fa-edit', 'Edit Match', () => console.log('edit'));
+        this.actions = [{
+          styleName: 'fas fa-edit',
+          text: 'Edit match',
+          click: () => console.log('edit')
+        }];
+        if (navigator['share']) {
+          this.actions.push({
+            styleName: 'fas fa-share-alt',
+            text: 'Share',
+            click: () => this.share()
+          });
+        }
       }
       this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
       if (this.match.join) {
@@ -64,8 +75,7 @@ export class MatchDetailComponent implements OnInit {
         })
       }
       
-    });
-    
+    }); 
   }
 
   mapReady(map) {
@@ -125,5 +135,13 @@ export class MatchDetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  private share() {
+    (navigator as any).share({
+      title: this.match.name,
+      text: `${this.session.loggedUser().name} wants to share with you a Match from SoccerJoin`,
+      url: window.location.href,
+    });
   }
 }

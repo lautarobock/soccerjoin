@@ -1,9 +1,4 @@
-<!-- <div *ngIf="matches && !matches.length">
-  <p>
-    Welcome to SoccerJoin {{session.loggedUser()?.name}}!
-  </p>
-  
-</div> -->
+<sj-toolbar [isHome]="true" [actions]="actions"></sj-toolbar>
 <mat-tab-group>
   <mat-tab label="All">
     <div *ngIf="!allMatches">

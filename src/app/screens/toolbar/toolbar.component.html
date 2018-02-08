@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span *ngIf="isHome" style="cursor: pointer">
+    <i class="fas fa-bars"></i>
+  </span>
+  <span *ngIf="!isHome" (click)="back()" style="cursor: pointer">
+    <i class="fas fa-arrow-left"></i>
+  </span>
+  <span style="margin-left: 1em">{{title}}</span>
+
+  <div *ngIf="loading" style="margin-left: auto">
+    <i class="fas fa-futbol fa-pulse"></i>
+  </div>
+  <span *ngIf="!loading" style="margin-left: auto">
+    <span *ngFor="let action of actions" style="margin-left: 1em" (click)="action.click()">
+      <i [class]="action.styleName" [title]="action.text"></i>
+    </span>
+  </span>
+</mat-toolbar>

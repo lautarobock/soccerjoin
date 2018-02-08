@@ -1,7 +1,7 @@
 <mat-sidenav-container>
     <mat-sidenav mode="side" opened="false">Sidenav content</mat-sidenav>
     <mat-sidenav-content>
-        <mat-toolbar color="primary">
+        <!-- <mat-toolbar color="primary">
             <span routerLink="/home" style="cursor: pointer">
                 <i class="fas fa-home"></i>
             </span>
@@ -13,7 +13,7 @@
             <span *ngIf="!loading && action"  style="margin-left: auto" (click)="action.click()">
                 <i [class]="action.styleName" [title]="action.text" ></i>
             </span>
-        </mat-toolbar>
+        </mat-toolbar> -->
         <router-outlet *ngIf="!session.token() || session.loggedUser()"></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>

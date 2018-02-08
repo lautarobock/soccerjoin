@@ -13,6 +13,7 @@ import { MatchResolver } from './matches/match-resolver.service';
 import { FormsModule } from '@angular/forms';
 import { MatchListComponent } from './matches/match-list/match-list.component';
 import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dialog.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   imports: [
@@ -86,7 +87,8 @@ import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dial
     StravaImporterComponent,
     MatchDetailComponent,
     MatchListComponent,
-    JoinDialogComponent
+    JoinDialogComponent,
+    ToolbarComponent
   ],
   entryComponents: [
     JoinDialogComponent

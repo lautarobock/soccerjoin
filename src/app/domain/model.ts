@@ -50,6 +50,7 @@ export class Match {
     public owner: User;
     public likes: Like[];
     public join: Join;
+    public isPublic: boolean;
 }
 
 export class Like {

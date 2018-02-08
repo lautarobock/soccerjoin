@@ -8,25 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { SpinnerService } from './services/spinner.service';
 import { Subject } from 'rxjs/Subject';
 import { PromptUpdateService } from './updates/prompt-update.service';
-
-@Injectable()
-export class ToolbarService {
-
-  action: Action;
-  change = new Subject<Action>();
-
-  clear() {
-    this.action = undefined;
-    this.change.next(undefined);
-  }
-
-  set(styleName: string, text: string, click: () => void) {
-    this.action = {
-      styleName, text, click
-    };
-    setTimeout(() => this.change.next(this.action));
-  }
-}
+import { Action } from './screens/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
@@ -35,44 +17,16 @@ export class ToolbarService {
 })
 export class AppComponent implements OnInit {
 
-  loading = false;
-  action: Action;
-
   constructor(
     public session: Session,
     private userService: UsersService,
-    private geoService: GeoService,
-    private router: Router,
-    private spinner: SpinnerService,
-    private toolbarService: ToolbarService,
-    private promptUpdateService: PromptUpdateService
+    private geoService: GeoService
   ) { }
 
   ngOnInit() {
     if (this.session.token() && !this.session.loggedUser()) {
       this.userService.me().subscribe(me => this.session.registerUser(me));
     }
-    this.spinner.onChange.subscribe(count => {
-      setTimeout(() => {
-        if (count) {
-          this.loading = true
-        } else {
-          this.loading = false
-        }
-      });
-    });
-    this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationStart) {
-        this.toolbarService.clear();
-      }
-    });
-    this.toolbarService.change.subscribe(action => this.action = action);
   }
 
-}
-
-export class Action {
-  styleName: string;
-  text: string;
-  click: () => void;
 }

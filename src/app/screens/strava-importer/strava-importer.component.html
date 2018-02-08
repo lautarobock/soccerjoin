@@ -1,3 +1,4 @@
+<sj-toolbar></sj-toolbar>
 <mat-form-field style="width: 500px; max-width: 90%">
   <mat-select placeholder="Activities from strava" [(value)]="selected" (change)="showInfo(selected)">
     <mat-option *ngFor="let item of data; last as last" [value]="item">

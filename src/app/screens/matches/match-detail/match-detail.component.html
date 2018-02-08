@@ -1,3 +1,4 @@
+<sj-toolbar [actions]="actions"></sj-toolbar>
 <mat-list>
   <mat-list-item>
     <img matListAvatar [src]="match.owner.pictureUrl" />
@@ -93,11 +94,11 @@
   </mat-expansion-panel-header>
   <div *ngFor="let joinedMatch of joinMatches">
     <mat-list>
-        <mat-list-item>
-          <h3 matLine>{{joinedMatch.owner.name}}</h3>
-        </mat-list-item>
+      <mat-list-item>
+        <h3 matLine>{{joinedMatch.owner.name}}</h3>
+      </mat-list-item>
     </mat-list>
-    
+
     <mat-list>
       <mat-list-item>
         <form style="margin-top: 2em">

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent, ToolbarService } from './app.component';
+import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -14,6 +14,7 @@ import { FooterComponent } from './home/footer/footer.component';
 import { ServicesModule } from './services/services.module';
 import { ScreensModule } from './screens/screens.module';
 import { UpdatesModule } from './updates/updates.module';
+import { ToolsModule } from './tools/tools.module';
 
 @NgModule({
   declarations: [
@@ -32,11 +33,12 @@ import { UpdatesModule } from './updates/updates.module';
     ServicesModule,
     ScreensModule,
     UpdatesModule,
+    ToolsModule,
     RouterModule.forRoot([
       // { path: '', component: HomeComponent, pathMatch: 'full' }
     ], {useHash: false})
   ],
-  providers: [ToolbarService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -21,7 +21,14 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.ts$/, loader: 'ts-loader' }
+      { 
+        test: /@angular(\\|\/)material/, 
+        use: "imports-loader?window=>global,CSS=>null,navigator=>{get userAgent(){return Zone.current.get('req')['headers']['user-agent'];}}"
+      },
+      { 
+        test: /@angular(\\|\/)service-worker/, 
+        use: "imports-loader?window=>global,CSS=>null,navigator=>{get serviceWorker() {return {};}}"
+      }
     ]
   },
   plugins: [

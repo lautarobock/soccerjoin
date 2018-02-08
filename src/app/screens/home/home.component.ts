@@ -3,6 +3,7 @@ import { Session } from '../../services/session.service';
 import { UsersService } from '../../services/users.service';
 import { MatchesService } from '../../services/matches.service';
 import { Match } from '../../domain/model';
+import { Action } from '../toolbar/toolbar.component';
 
 @Component({
   selector: 'sj-home',
@@ -11,6 +12,7 @@ import { Match } from '../../domain/model';
 })
 export class HomeComponent implements OnInit {
 
+  actions: Action[];
   matches: Match[];
   allMatches: Match[];
 
@@ -26,6 +28,11 @@ export class HomeComponent implements OnInit {
       this.allMatches = matches;
       this.matches = matches.filter(match => match.owner._id.toString() === this.session.loggedUser()._id.toString());
     });
+    this.actions = [{
+      styleName: 'fas fa-search',
+      text: 'Search',
+      click: () => console.log('click')
+    }];
   }
 
 }
