@@ -53,7 +53,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
         resolve: {
           match: MatchResolver
         },
-        canActivate: [AuthGuard]
+        canActivate: []
       },
       {
         path: 'login',

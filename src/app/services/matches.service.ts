@@ -25,7 +25,11 @@ export class MatchesService {
   }
 
   get(id: string) {
-    return this.http.get<Match>(`${environment.backendUrl}/api/matches/${id}`);
+    if (this.session.token()) {
+      return this.http.get<Match>(`${environment.backendUrl}/api/matches/${id}`);
+    } else {
+      return this.http.get<Match>(`${environment.backendUrl}/public/matches/${id}`);
+    }
   }
 
   like(match: Match) {

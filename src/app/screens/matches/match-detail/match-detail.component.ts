@@ -6,6 +6,7 @@ import { Session } from '../../../services/session.service';
 import { MatchesService } from '../../../services/matches.service';
 import { JoinDialog } from '../join-dialog/join-dialog.component';
 import { Action } from '../../toolbar/toolbar.component';
+import { MetaData } from '../../../tools/meta-data.service';
 declare var google: any;
 
 @Component({
@@ -38,7 +39,8 @@ export class MatchDetailComponent implements OnInit {
     private session: Session,
     private matchesService: MatchesService,
     private snackBar: MatSnackBar,
-    private joinDialog: JoinDialog
+    private joinDialog: JoinDialog,
+    private metaData: MetaData
   ) { }
 
   ngOnInit() {
@@ -46,36 +48,38 @@ export class MatchDetailComponent implements OnInit {
       this.match = routeData.match;
       this.maxTime = this.match.streams.time.length - 1;
       this.currentTime = this.maxTime;
-      this.isMine = this.match.owner._id === this.session.loggedUser()._id;
-      if (this.isMine) {
-        this.actions = [{
-          styleName: 'fas fa-edit',
-          text: 'Edit match',
-          click: () => console.log('edit')
-        }];
-        if (navigator['share']) {
-          this.actions.push({
-            styleName: 'fas fa-share-alt',
-            text: 'Share',
-            click: () => this.share()
-          });
+      this.metaData.match(this.match);
+      if (this.session.token()) {
+        this.isMine = this.match.owner._id === this.session.loggedUser()._id;
+        if (this.isMine) {
+          this.actions = [{
+            styleName: 'fas fa-edit',
+            text: 'Edit match',
+            click: () => console.log('edit')
+          }];
+          if (navigator['share']) {
+            this.actions.push({
+              styleName: 'fas fa-share-alt',
+              text: 'Share',
+              click: () => this.share()
+            });
+          }
+        }
+        this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
+        if (this.match.join) {
+
+          Promise.all(
+            this.match.join.matches
+              .filter(m => m !== this.match._id)
+              .map(match => this.matchesService.get(match as string).toPromise())
+          )
+            .then(matches => {
+              this.joinMatches = matches;
+              this.isJoin = this.joinMatches.find(match => match.owner._id === this.session.loggedUser()._id) !== undefined;
+            })
         }
       }
-      this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
-      if (this.match.join) {
-        
-        Promise.all(
-          this.match.join.matches
-            .filter(m => m !== this.match._id)
-            .map(match => this.matchesService.get(match as string).toPromise())
-        )
-        .then(matches => {
-          this.joinMatches = matches;
-          this.isJoin = this.joinMatches.find(match => match.owner._id === this.session.loggedUser()._id) !== undefined;
-        })
-      }
-      
-    }); 
+    });
   }
 
   mapReady(map) {
@@ -103,7 +107,7 @@ export class MatchDetailComponent implements OnInit {
   }
 
   toDate(ms: number) {
-    return new Date(0,0,0,0,0,0,ms);
+    return new Date(0, 0, 0, 0, 0, 0, ms);
   }
 
   unlike() {
