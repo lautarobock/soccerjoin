@@ -109,7 +109,7 @@ export class StravaImporterComponent implements OnInit {
       },
       owner: undefined
     } as Match).subscribe(
-      response => this.router.navigate(['/home']),
+      response => this.router.navigate(['/matches', response._id]),
       err => console.error(err)
     )
   }

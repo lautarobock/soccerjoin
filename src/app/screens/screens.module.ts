@@ -10,15 +10,17 @@ import { AuthGuard } from '../services/auth.guard';
 import { StravaImporterComponent } from './strava-importer/strava-importer.component';
 import { MatchDetailComponent } from './matches/match-detail/match-detail.component';
 import { MatchResolver } from './matches/match-resolver.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatchListComponent } from './matches/match-list/match-list.component';
 import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dialog.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatchEditComponent } from './matches/match-edit/match-edit.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
@@ -45,6 +47,14 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
       {
         path: 'home',
         component: HomeComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'matches/:id/edit',
+        component: MatchEditComponent,
+        resolve: {
+          match: MatchResolver
+        },
         canActivate: [AuthGuard]
       },
       {
@@ -88,7 +98,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatchDetailComponent,
     MatchListComponent,
     JoinDialogComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    MatchEditComponent
   ],
   entryComponents: [
     JoinDialogComponent

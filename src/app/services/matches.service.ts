@@ -32,6 +32,10 @@ export class MatchesService {
     }
   }
 
+  update(matchId: string, changes: any) {
+    return this.http.put<Match>(`${environment.backendUrl}/api/matches/${matchId}`, changes);
+  }
+
   like(match: Match) {
     return this.http.post<void>(`${environment.backendUrl}/api/matches/${match._id}/like`, {});
   }

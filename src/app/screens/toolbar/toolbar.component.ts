@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SpinnerService } from '../../services/spinner.service';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Platform } from '../../tools/platform.service';
@@ -13,6 +13,7 @@ export class ToolbarComponent implements OnInit {
   @Input() title = 'Soccer Join';
   @Input() actions: Action[];
   @Input() isHome = false;
+  @Output() customBack = new EventEmitter();
   loading = false;
 
   constructor(
@@ -38,7 +39,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/home']);
+    if (this.customBack.observers.length) {
+      this.customBack.emit();
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 
 }

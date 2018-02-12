@@ -22,7 +22,7 @@ export class StravaService {
       ])
       .then(responses => {
         const [activities, matches] = responses;
-        return activities.filter(activity => matches.find((match: Match) => match.strava.id === activity.id) === undefined);
+        return activities.filter(activity => ['Run', 'Workout', 'Walk'].indexOf(activity.type) !== -1 && matches.find((match: Match) => match.strava.id === activity.id) === undefined);
       });
   }
 

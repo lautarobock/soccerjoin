@@ -1,0 +1,20 @@
+<sj-toolbar [actions]="actions" (customBack)="cancel()"></sj-toolbar>
+<div class="form-container" [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name">
+  </mat-form-field>
+  <!-- <mat-form-field>
+    <input matInput type="number" placeholder="Distance (meters)" formControlName="distance">
+  </mat-form-field> -->
+</div>
+<!-- <mat-list>
+  <mat-list-item>
+    <img matListAvatar [src]="match.owner.pictureUrl" />
+    <h3 matLine>
+      {{match.name}}
+    </h3>
+    <p matLine>
+      <span> {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}} </span>
+    </p>
+  </mat-list-item>
+</mat-list> -->

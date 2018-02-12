@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Like, Match } from '../../../domain/model';
 import { MatSliderChange, MatSlideToggleChange, MatSnackBar } from '@angular/material';
 import { Session } from '../../../services/session.service';
@@ -43,6 +43,7 @@ export class MatchDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     public session: Session,
     private matchesService: MatchesService,
     private snackBar: MatSnackBar,
@@ -127,7 +128,7 @@ export class MatchDetailComponent implements OnInit {
         this.actions = [{
           styleName: 'fas fa-lg fa-edit',
           text: 'Edit match',
-          click: () => console.log('edit')
+          click: () => this.router.navigate(['/matches', this.match._id, 'edit'])
         // }, {
         //   styleName: 'fas fa-thumbs-up',
         //   text: 'Edit match',
