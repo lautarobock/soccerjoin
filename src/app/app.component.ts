@@ -9,6 +9,7 @@ import { SpinnerService } from './services/spinner.service';
 import { Subject } from 'rxjs/Subject';
 import { PromptUpdateService } from './updates/prompt-update.service';
 import { Action } from './screens/toolbar/toolbar.component';
+import { Platform } from './tools/platform.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,22 @@ export class AppComponent implements OnInit {
   constructor(
     public session: Session,
     private userService: UsersService,
-    private geoService: GeoService
+    private geoService: GeoService,
+    private router: Router,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
     if (this.session.token() && !this.session.loggedUser()) {
       this.userService.me().subscribe(me => this.session.registerUser(me));
     }
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd) {
+        if (this.platform.isBrowser()) {
+          window.scrollTo(0, 0)
+        }
+      }
+    });
   }
 
 }

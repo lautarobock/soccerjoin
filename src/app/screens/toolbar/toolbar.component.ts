@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SpinnerService } from '../../services/spinner.service';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Platform } from '../../tools/platform.service';
 
 @Component({
   selector: 'sj-toolbar',
@@ -33,11 +34,6 @@ export class ToolbarComponent implements OnInit {
           this.loading = false
         }
       });
-    });
-    this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationStart) {
-        this.actions = undefined;
-      }
     });
   }
 
