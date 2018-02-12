@@ -5,35 +5,58 @@
     <h3 matLine>
       {{match.name}}
       <span *ngIf="!isMine">
-        <span *ngIf="isLike" style="float: right" (click)="unlike()">
-          <i class="fas fa-thumbs-up"></i> {{match.likes.length}}
-        </span>
-        <span *ngIf="!isLike" style="float: right" (click)="like()">
-          <i class="far fa-thumbs-up"></i> {{match.likes.length}}
-        </span>
-        <span *ngIf="isJoin" style="float: right; margin-right: 1em" (click)="unjoin()">
+        <button mat-icon-button *ngIf="isLike" style="float: right" (click)="unlike()">
+          <i class="fas  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+        </button>
+        <button mat-icon-button *ngIf="!isLike" style="float: right" (click)="like()">
+          <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+        </button>
+        <!-- <span *ngIf="isJoin" style="float: right; margin-right: 1em" (click)="unjoin()">
           <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
         </span>
         <span *ngIf="!isJoin" style="float: right; margin-right: 1em" (click)="join()">
           <i class="far fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
-        </span>
+        </span> -->
       </span>
       <span *ngIf="isMine">
-        <span style="float: right" (click)="likeMyself()">
-          <i class="far fa-thumbs-up"></i> {{match.likes.length}}
-        </span>
-        <span style="float: right; margin-right: 1em">
+        <button mat-icon-button style="float: right" (click)="likeMyself()">
+          <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+        </button>
+        <!-- <span style="float: right; margin-right: 1em">
           <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
-        </span>
+        </span> -->
       </span>
     </h3>
     <p matLine>
-      <span> {{match.startDate | date}} </span>
+      <span> {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}} </span>
       <span> by {{match.owner.name}} {{match.owner.lastName}} </span>
     </p>
   </mat-list-item>
 </mat-list>
-<agm-map #map [latitude]="match.center.lat" [longitude]="match.center.lng" [zoom]="22" mapTypeId="satellite" (mapReady)="mapReady($event)">
+<!-- <button mat-fab style="z-index: 2000;position: absolute;right: 1em;top: 107px;" routerLink="/strava/importer">
+  <i class="fas fa-level-down-alt"></i>
+</button> -->
+<div class="button-row">
+  <button *ngIf="isJoin !== undefined && !isMine && !isJoin" (click)="join()" mat-button color="accent">
+    <i class="far fa-dot-circle"></i>
+    Join
+  </button>
+  <button *ngIf="isJoin !== undefined && !isMine && isJoin" disabled mat-button color="accent">
+    <i class="fas fa-dot-circle"></i>
+    Joined
+  </button>
+  <button *ngIf="isJoin !== undefined && isMine" disabled mat-button color="accent">
+    <i class="fas fa-dot-circle"></i>
+  </button>
+  <span *ngIf="match.join?.matches?.length">
+    {{match.join?.matches?.length}} players in this match
+  </span>
+  <!-- <span *ngIf="!isJoin" style="float: right; margin-right: 1em" (click)="join()">
+    <i class="far fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
+  </span> -->
+</div>
+<agm-map #map *ngIf="platform.isBrowser()" [latitude]="match.center.lat" [streetViewControl]="false" [rotateControl]="true" [longitude]="match.center.lng" [zoom]="22" mapTypeId="satellite"
+  (mapReady)="mapReady($event)">
   <agm-circle *ngIf="showCentre" [latitude]="match.center.lat" [longitude]="match.center.lng" [radius]="1" [fillOpacity]="1"
     [fillColor]="'blue'">
   </agm-circle>
@@ -95,7 +118,14 @@
   <div *ngFor="let joinedMatch of joinMatches">
     <mat-list>
       <mat-list-item>
-        <h3 matLine>{{joinedMatch.owner.name}}</h3>
+        <img matListAvatar [src]="joinedMatch.owner.pictureUrl" />
+        <h3 matLine>
+          {{joinedMatch.owner.name}}
+          <span *ngIf="joinedMatch.owner._id === session.loggedUser()._id">(you)</span>
+        </h3>
+        <button mat-icon-button routerLink="/matches/{{joinedMatch._id}}">
+          <i class="fas fa-eye"></i>
+        </button>
       </mat-list-item>
     </mat-list>
 

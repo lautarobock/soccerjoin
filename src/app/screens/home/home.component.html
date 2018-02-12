@@ -1,10 +1,18 @@
-<sj-toolbar [isHome]="true" [actions]="actions"></sj-toolbar>
+<sj-toolbar *ngIf="!searchMode" [isHome]="true" [actions]="actions"></sj-toolbar>
+<mat-toolbar *ngIf="searchMode">
+  <mat-form-field style="width: 100%" [floatLabel]="'never'">
+    <input #searchBox matInput placeholder="Search" [(ngModel)]="searchText" (ngModelChange)="searchTerms.next()" (blur)="blurSearchBox()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''; blurSearchBox(); search()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</mat-toolbar>
 <mat-tab-group>
   <mat-tab label="All">
     <div *ngIf="!allMatches">
       Loading
     </div>
-    <div *ngIf="allMatches && !allMatches.length">
+    <div *ngIf="allMatches && !allMatches.length && searchText === ''">
       <h3 style="margin-left: auto;margin-right: auto;width: 310px;">
         Ups, there is not matches yet, you can start
       </h3>
@@ -15,7 +23,7 @@
     <sj-match-list *ngIf="allMatches && allMatches.length" [matches]="allMatches"></sj-match-list>
   </mat-tab>
   <mat-tab label="Mine">
-    <div *ngIf="matches && !matches.length">
+    <div *ngIf="matches && !matches.length && searchText === ''">
       <h3 style="margin-left: auto;margin-right: auto;width: 310px;">
         Ups, there is not matches yet, you can start
       </h3>

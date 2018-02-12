@@ -42,7 +42,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   back() {
-    window.history.back();
+    this.router.navigate(['/home']);
   }
 
 }

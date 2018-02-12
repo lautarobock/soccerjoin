@@ -11,8 +11,8 @@
     <i class="fas fa-futbol fa-pulse"></i>
   </div>
   <span *ngIf="!loading" style="margin-left: auto">
-    <span *ngFor="let action of actions" style="margin-left: 1em" (click)="action.click()">
+    <button mat-icon-button *ngFor="let action of actions" style="margin-left: 1em" (click)="action.click()">
       <i [class]="action.styleName" [title]="action.text"></i>
-    </span>
+    </button>
   </span>
 </mat-toolbar>

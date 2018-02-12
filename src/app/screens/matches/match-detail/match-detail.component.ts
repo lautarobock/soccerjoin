@@ -7,6 +7,7 @@ import { MatchesService } from '../../../services/matches.service';
 import { JoinDialog } from '../join-dialog/join-dialog.component';
 import { Action } from '../../toolbar/toolbar.component';
 import { MetaData } from '../../../tools/meta-data.service';
+import { Platform } from '../../../tools/platform.service';
 declare var google: any;
 
 @Component({
@@ -16,6 +17,12 @@ declare var google: any;
 agm-map {
   height: 350px;
 }
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
   `]
 })
 export class MatchDetailComponent implements OnInit {
@@ -36,50 +43,16 @@ export class MatchDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private session: Session,
+    public session: Session,
     private matchesService: MatchesService,
     private snackBar: MatSnackBar,
     private joinDialog: JoinDialog,
-    private metaData: MetaData
+    private metaData: MetaData,
+    public platform: Platform
   ) { }
 
   ngOnInit() {
-    this.route.data.subscribe((routeData: { match: Match }) => {
-      this.match = routeData.match;
-      this.maxTime = this.match.streams.time.length - 1;
-      this.currentTime = this.maxTime;
-      this.metaData.match(this.match);
-      if (this.session.token()) {
-        this.isMine = this.match.owner._id === this.session.loggedUser()._id;
-        if (this.isMine) {
-          this.actions = [{
-            styleName: 'fas fa-edit',
-            text: 'Edit match',
-            click: () => console.log('edit')
-          }];
-          if (navigator['share']) {
-            this.actions.push({
-              styleName: 'fas fa-share-alt',
-              text: 'Share',
-              click: () => this.share()
-            });
-          }
-        }
-        this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
-        if (this.match.join) {
-
-          Promise.all(
-            this.match.join.matches
-              .filter(m => m !== this.match._id)
-              .map(match => this.matchesService.get(match as string).toPromise())
-          )
-            .then(matches => {
-              this.joinMatches = matches;
-              this.isJoin = this.joinMatches.find(match => match.owner._id === this.session.loggedUser()._id) !== undefined;
-            })
-        }
-      }
-    });
+    this.route.data.subscribe((routeData: { match: Match }) => this.loadData(routeData.match));
   }
 
   mapReady(map) {
@@ -135,10 +108,57 @@ export class MatchDetailComponent implements OnInit {
       isJoin => {
         console.log('isJoin', isJoin);
         if (isJoin) {
-
+          this.matchesService.get(this.match._id).subscribe(
+            match => this.loadData(match)
+          );
         }
       }
     );
+  }
+
+  private loadData(match: Match) {
+    this.match = match;
+    this.maxTime = this.match.streams.time.length - 1;
+    this.currentTime = this.maxTime;
+    this.metaData.match(this.match);
+    if (this.session.token()) {
+      this.isMine = this.match.owner._id === this.session.loggedUser()._id;
+      if (this.isMine) {
+        this.actions = [{
+          styleName: 'fas fa-lg fa-edit',
+          text: 'Edit match',
+          click: () => console.log('edit')
+        // }, {
+        //   styleName: 'fas fa-thumbs-up',
+        //   text: 'Edit match',
+        //   click: () => console.log('edit')
+        }];
+        if (navigator['share']) {
+          this.actions.push({
+            styleName: 'fas fa-share-alt',
+            text: 'Share',
+            click: () => this.share()
+          });
+        }
+      }
+      this.isLike = this.match.likes.find(like => like.owner === this.session.loggedUser()._id) !== undefined;
+      if (this.match.join) {
+        Promise.all(
+          this.match.join.matches
+            .filter(m => m !== this.match._id)
+            .map(match => this.matchesService.get(match as string).toPromise())
+        )
+          .then(matches => {
+            this.joinMatches = matches;
+            this.isJoin = this.joinMatches.find(match => match.owner._id === this.session.loggedUser()._id) !== undefined;
+          })
+      } else {
+        this.isJoin = false;
+      }
+      if (this.heatmap) {
+        this.heatmap.setData(this.match.streams.latlng.map(p => new google.maps.LatLng(p.lat, p.lng)));      
+      }
+    }
   }
 
   private share() {
