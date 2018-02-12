@@ -11,10 +11,12 @@ import { Platform } from '../../tools/platform.service';
 export class ToolbarComponent implements OnInit {
 
   @Input() title = 'Soccer Join';
-  @Input() actions: Action[];
+  @Input() actions: Action[] = [];
   @Input() isHome = false;
   @Output() customBack = new EventEmitter();
   loading = false;
+  actionsMain: Action[];
+  actionsMenu: Action[];
 
   constructor(
     private spinner: SpinnerService,
@@ -36,6 +38,8 @@ export class ToolbarComponent implements OnInit {
         }
       });
     });
+    this.actionsMain = this.actions.filter(action => !action.menu);
+    this.actionsMenu = this.actions.filter(action => action.menu);
   }
 
   back() {
@@ -52,4 +56,5 @@ export class Action {
   styleName: string;
   text: string;
   click: () => void;
+  menu: boolean;
 }

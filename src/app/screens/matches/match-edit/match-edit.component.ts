@@ -40,7 +40,8 @@ export class MatchEditComponent implements OnInit {
     this.actions = [{
       styleName: 'fas fa-lg fa-save',
       text: 'Save changes',
-      click: () => this.save()
+      click: () => this.save(),
+      menu: false
     }];
     this.form = this.fb.group({
       name: this.match.name

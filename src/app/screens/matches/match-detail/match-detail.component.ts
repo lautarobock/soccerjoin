@@ -39,7 +39,7 @@ export class MatchDetailComponent implements OnInit {
   isLike: boolean;
   isMine: boolean;
   isJoin: boolean;
-  actions: Action[];
+  actions: Action[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -128,17 +128,20 @@ export class MatchDetailComponent implements OnInit {
         this.actions = [{
           styleName: 'fas fa-lg fa-edit',
           text: 'Edit match',
-          click: () => this.router.navigate(['/matches', this.match._id, 'edit'])
-        // }, {
-        //   styleName: 'fas fa-thumbs-up',
-        //   text: 'Edit match',
-        //   click: () => console.log('edit')
+          click: () => this.router.navigate(['/matches', this.match._id, 'edit']),
+          menu: false
+        }, {
+          styleName: 'fas fa-trash',
+          text: 'Delete Match',
+          click: () => this.deleteMatch(),
+          menu: true
         }];
         if (navigator['share']) {
           this.actions.push({
-            styleName: 'fas fa-share-alt',
+            styleName: 'fas fa-lg fa-share-alt',
             text: 'Share',
-            click: () => this.share()
+            click: () => this.share(),
+            menu: false
           });
         }
       }
@@ -159,6 +162,20 @@ export class MatchDetailComponent implements OnInit {
       if (this.heatmap) {
         this.heatmap.setData(this.match.streams.latlng.map(p => new google.maps.LatLng(p.lat, p.lng)));      
       }
+    }
+  }
+  
+  private deleteMatch() {
+    if (this.match.join) {
+      alert('This match is joined to another, you cannot remove it');
+    } else if (confirm('Are you sure you want to remove it?')) {
+      this.matchesService.remove(this.match._id).subscribe(
+        () => {
+          this.snackBar.open('Match removed', 'CLOSE', {duration: 2000});
+          this.router.navigate(['/matches']);
+        },
+        err => this.snackBar.open(err, 'CLOSE')
+      );
     }
   }
 

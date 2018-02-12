@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { StravaComponent } from './strava/strava.component';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule, MatCardModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule, MatCardModule, MatMenuModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../services/auth.guard';
@@ -35,6 +35,7 @@ import { MatchEditComponent } from './matches/match-edit/match-edit.component';
     MatSnackBarModule,
     MatDialogModule,
     MatCardModule,
+    MatMenuModule,
     AgmCoreModule.forRoot({
       libraries: ['visualization'],
       apiKey: 'AIzaSyAp9Ii0KhgZ435TgTy0JZsMLekx4087Bfg' // SoccerJoin proyect and app

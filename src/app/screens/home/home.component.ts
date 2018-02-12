@@ -38,7 +38,8 @@ export class HomeComponent implements OnInit {
       click: () => {
         this.searchMode = true;
         setTimeout(() => this.searchBox.nativeElement.focus());
-      }
+      },
+      menu: false
     }];
   }
 
