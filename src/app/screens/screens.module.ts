@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { StravaComponent } from './strava/strava.component';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule, MatCardModule, MatMenuModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatSliderModule, MatExpansionModule, MatSlideToggleModule, MatSnackBarModule, MatDialogModule, MatCardModule, MatMenuModule, MatProgressBarModule } from '@angular/material';
 import { AgmCoreModule } from '@agm/core';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '../services/auth.guard';
@@ -38,6 +38,7 @@ import { MatchChartComponent } from './matches/match-detail/match-chart.componen
     MatDialogModule,
     MatCardModule,
     MatMenuModule,
+    MatProgressBarModule,
     ChartsModule,
     AgmCoreModule.forRoot({
       libraries: ['visualization'],
