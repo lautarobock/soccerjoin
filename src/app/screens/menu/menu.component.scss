@@ -1,0 +1,8 @@
+.active {
+    color: #ff4081 !important;
+    
+}
+
+:host /deep/ .active .mat-list-text h3.mat-line {
+    font-weight: 500 !important;
+}

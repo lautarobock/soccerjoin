@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SpinnerService } from '../../services/spinner.service';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { Platform } from '../../tools/platform.service';
+import { MenuService } from '../menu/menu.service';
 
 @Component({
   selector: 'sj-toolbar',
@@ -20,7 +21,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private spinner: SpinnerService,
-    private router: Router
+    private router: Router,
+    public menuService: MenuService
   ) { }
 
   ngOnInit() {

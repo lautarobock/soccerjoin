@@ -1,6 +1,6 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading" style="position: fixed" color="accent"></mat-progress-bar>
+<!-- <mat-progress-bar mode="indeterminate" *ngIf="loading" style="position: fixed" color="accent"></mat-progress-bar> -->
 <mat-toolbar color="primary">
-  <span *ngIf="isHome" style="cursor: pointer">
+  <span *ngIf="isHome" style="cursor: pointer" (click)="menuService.open()">
     <i class="fas fa-bars"></i>
   </span>
   <span *ngIf="!isHome" (click)="back()" style="cursor: pointer">
@@ -9,7 +9,9 @@
   <span style="margin-left: 1em">{{title}}</span>
 
   <div *ngIf="loading" style="margin-left: auto">
-    <i class="fas fa-futbol fa-pulse"></i>
+    <button mat-icon-button>
+      <i class="fas fa-lg fa-futbol fa-pulse"></i>
+    </button>
   </div>
   <span *ngIf="!loading" style="margin-left: auto">
     <button mat-icon-button *ngFor="let action of actionsMain" (click)="action.click()">

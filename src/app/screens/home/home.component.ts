@@ -11,7 +11,11 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'sj-home',
   templateUrl: './home.component.html',
-  styles: []
+  styles: [`
+:host mat-tab-group {
+  height: calc(100vh - 64px)
+}
+  `]
 })
 export class HomeComponent implements OnInit {
 
@@ -33,7 +37,7 @@ export class HomeComponent implements OnInit {
     this.search();
     this.searchTerms.pipe(debounceTime(500)).subscribe(() => this.search());
     this.actions = [{
-      styleName: 'fas fa-search',
+      styleName: 'fas fa-lg fa-search',
       text: 'Search',
       click: () => {
         this.searchMode = true;

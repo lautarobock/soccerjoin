@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MatSidenavModule, MatToolbarModule, MatButtonModule, MatListModule, MatIconModule } from '@angular/material';
+import { MatSidenavModule, MatToolbarModule, MatButtonModule, MatListModule, MatIconModule, MatProgressBarModule } from '@angular/material';
 import { FooterComponent } from './home/footer/footer.component';
 
 import { ServicesModule } from './services/services.module';
@@ -25,6 +25,7 @@ import { ToolsModule } from './tools/tools.module';
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     MatSidenavModule,
     MatToolbarModule,
+    MatProgressBarModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {
       enabled: environment.production
     }),

@@ -17,6 +17,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatchEditComponent } from './matches/match-edit/match-edit.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { MatchChartComponent } from './matches/match-detail/match-chart.component';
+import { MenuComponent } from './menu/menu.component';
+import { StatsComponent } from './stats/stats.component';
+import { MenuService } from './menu/menu.service';
 
 @NgModule({
   imports: [
@@ -71,6 +74,11 @@ import { MatchChartComponent } from './matches/match-detail/match-chart.componen
         canActivate: []
       },
       {
+        path: 'stats',
+        component: StatsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'login',
         component: LoginComponent
       },
@@ -92,6 +100,7 @@ import { MatchChartComponent } from './matches/match-detail/match-chart.componen
     ])
   ],
   exports: [
+    MenuComponent,
     // LoginComponent,
     // StravaComponent
   ],
@@ -105,14 +114,17 @@ import { MatchChartComponent } from './matches/match-detail/match-chart.componen
     JoinDialogComponent,
     ToolbarComponent,
     MatchEditComponent,
-    MatchChartComponent
+    MatchChartComponent,
+    MenuComponent,
+    StatsComponent
   ],
   entryComponents: [
     JoinDialogComponent
   ],
   providers: [
     MatchResolver,
-    JoinDialog
+    JoinDialog,
+    MenuService
   ]
 })
 export class ScreensModule { }
