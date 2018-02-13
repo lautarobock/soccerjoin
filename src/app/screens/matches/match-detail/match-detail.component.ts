@@ -41,35 +41,6 @@ export class MatchDetailComponent implements OnInit {
   isJoin: boolean;
   actions: Action[] = [];
 
-  chartLabels = ['Moving time', 'Elapsed time', 'PPM', 'Distance', 'Avg Speed', 'Calories'];
-  chartOptions = {
-    tooltips: {
-      callbacks: {
-        label: (tooltipItem, data) => {
-          // tooltipItem.index;
-          switch(tooltipItem.index) {
-            case 0:
-              return `${Math.round(this.match.movingTime / 60)} min`;
-            case 1:
-              return `${Math.round(this.match.elapsedTime / 60)} min`;
-            case 2:
-              return `${Math.round(this.match.averageHeartRate)} ppm`;
-            case 3:
-              return `${(this.match.distance / 1000).toFixed(2)} Km`;
-            case 4:
-              return `${this.match.averageSpeed.toFixed(2)} Km/h`;
-            case 5:
-              return `${Math.round(this.match.calories)} kcal`;
-          }
-        }
-      }
-    },
-    scale: {
-      display: true
-    }
-  };
-  chartData: { data: number[], label: string }[];
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -146,22 +117,21 @@ export class MatchDetailComponent implements OnInit {
     );
   }
 
+  get chartMatches(): Match[] {
+    if (this.isJoin===undefined) {
+      return undefined;
+    } else if (this.joinMatches && this.joinMatches.length) {
+      return [this.match].concat(this.joinMatches);
+    } else {
+      return [this.match];
+    }
+  }
+
   private loadData(match: Match) {
     this.match = match;
     this.maxTime = this.match.streams.time.length - 1;
     this.currentTime = this.maxTime;
     this.metaData.match(this.match);
-    this.chartData = [{
-      data: [
-        this.match.movingTime / 60 / 60 * 100,
-        this.match.elapsedTime / 60 / 60 * 100,
-        this.match.averageHeartRate / 200 * 100,
-        this.match.distance / 1000 / 5 * 100,
-        this.match.averageSpeed / 3 * 100,
-        this.match.calories / 500 * 100
-      ],
-      label: 'Me'
-    }];
     if (this.heatmap) {
       this.heatmap.setData(this.match.streams.latlng.map(p => new google.maps.LatLng(p.lat, p.lng)));
     }
@@ -202,7 +172,10 @@ export class MatchDetailComponent implements OnInit {
       } else {
         this.isJoin = false;
       }
+    } else {
+      this.isJoin = false;
     }
+    
   }
 
   private deleteMatch() {

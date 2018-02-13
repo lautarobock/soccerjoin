@@ -107,13 +107,7 @@
   </mat-list-item>
 </mat-list>
 
-<div style="display: block">
-    <canvas baseChart
-            [datasets]="chartData"
-            [labels]="chartLabels"
-            [options]="chartOptions"
-            chartType="radar"></canvas>
-  </div>
+<sj-match-chart *ngIf="chartMatches" [matches]="chartMatches"></sj-match-chart>
 
 <!-- <mat-expansion-panel *ngIf="joinMatches" displayMode="flat" style="margin-top: 2em">
   <mat-expansion-panel-header>

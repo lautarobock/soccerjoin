@@ -16,6 +16,7 @@ import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dial
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatchEditComponent } from './matches/match-edit/match-edit.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { MatchChartComponent } from './matches/match-detail/match-chart.component';
 
 @NgModule({
   imports: [
@@ -102,7 +103,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     MatchListComponent,
     JoinDialogComponent,
     ToolbarComponent,
-    MatchEditComponent
+    MatchEditComponent,
+    MatchChartComponent
   ],
   entryComponents: [
     JoinDialogComponent
