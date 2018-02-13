@@ -15,6 +15,7 @@ import { MatchListComponent } from './matches/match-list/match-list.component';
 import { JoinDialogComponent, JoinDialog } from './matches/join-dialog/join-dialog.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { MatchEditComponent } from './matches/match-edit/match-edit.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { MatchEditComponent } from './matches/match-edit/match-edit.component';
     MatDialogModule,
     MatCardModule,
     MatMenuModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       libraries: ['visualization'],
       apiKey: 'AIzaSyAp9Ii0KhgZ435TgTy0JZsMLekx4087Bfg' // SoccerJoin proyect and app

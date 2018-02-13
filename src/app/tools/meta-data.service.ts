@@ -20,7 +20,7 @@ export class MetaData {
       PPM: ${Math.round(match.averageHeartRate)}`
     );
     this.updateImage(this.staticMap(match));
-    this.updateURL(`https://soccerjoin-web.herokuapp.com/matches/${match._id}`);
+    this.updateURL(`https://www.soccerjoin.com/matches/${match._id}`);
   }
 
   private updateURL(url) {

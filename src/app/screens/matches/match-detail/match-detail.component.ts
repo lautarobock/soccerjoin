@@ -41,6 +41,35 @@ export class MatchDetailComponent implements OnInit {
   isJoin: boolean;
   actions: Action[] = [];
 
+  chartLabels = ['Moving time', 'Elapsed time', 'PPM', 'Distance', 'Avg Speed', 'Calories'];
+  chartOptions = {
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          // tooltipItem.index;
+          switch(tooltipItem.index) {
+            case 0:
+              return `${Math.round(this.match.movingTime / 60)} min`;
+            case 1:
+              return `${Math.round(this.match.elapsedTime / 60)} min`;
+            case 2:
+              return `${Math.round(this.match.averageHeartRate)} ppm`;
+            case 3:
+              return `${(this.match.distance / 1000).toFixed(2)} Km`;
+            case 4:
+              return `${this.match.averageSpeed.toFixed(2)} Km/h`;
+            case 5:
+              return `${Math.round(this.match.calories)} kcal`;
+          }
+        }
+      }
+    },
+    scale: {
+      display: true
+    }
+  };
+  chartData: { data: number[], label: string }[];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -122,6 +151,20 @@ export class MatchDetailComponent implements OnInit {
     this.maxTime = this.match.streams.time.length - 1;
     this.currentTime = this.maxTime;
     this.metaData.match(this.match);
+    this.chartData = [{
+      data: [
+        this.match.movingTime / 60 / 60 * 100,
+        this.match.elapsedTime / 60 / 60 * 100,
+        this.match.averageHeartRate / 200 * 100,
+        this.match.distance / 1000 / 5 * 100,
+        this.match.averageSpeed / 3 * 100,
+        this.match.calories / 500 * 100
+      ],
+      label: 'Me'
+    }];
+    if (this.heatmap) {
+      this.heatmap.setData(this.match.streams.latlng.map(p => new google.maps.LatLng(p.lat, p.lng)));
+    }
     if (this.session.token()) {
       this.isMine = this.match.owner._id === this.session.loggedUser()._id;
       if (this.isMine) {
@@ -159,19 +202,16 @@ export class MatchDetailComponent implements OnInit {
       } else {
         this.isJoin = false;
       }
-      if (this.heatmap) {
-        this.heatmap.setData(this.match.streams.latlng.map(p => new google.maps.LatLng(p.lat, p.lng)));      
-      }
     }
   }
-  
+
   private deleteMatch() {
     if (this.match.join) {
       alert('This match is joined to another, you cannot remove it');
     } else if (confirm('Are you sure you want to remove it?')) {
       this.matchesService.remove(this.match._id).subscribe(
         () => {
-          this.snackBar.open('Match removed', 'CLOSE', {duration: 2000});
+          this.snackBar.open('Match removed', 'CLOSE', { duration: 2000 });
           this.router.navigate(['/matches']);
         },
         err => this.snackBar.open(err, 'CLOSE')

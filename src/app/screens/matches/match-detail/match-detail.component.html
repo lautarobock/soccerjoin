@@ -106,8 +106,16 @@
     </form>
   </mat-list-item>
 </mat-list>
-<!-- <mat-divider style="margin-top: 2em"></mat-divider> -->
-<mat-expansion-panel *ngIf="joinMatches" displayMode="flat" style="margin-top: 2em">
+
+<div style="display: block">
+    <canvas baseChart
+            [datasets]="chartData"
+            [labels]="chartLabels"
+            [options]="chartOptions"
+            chartType="radar"></canvas>
+  </div>
+
+<!-- <mat-expansion-panel *ngIf="joinMatches" displayMode="flat" style="margin-top: 2em">
   <mat-expansion-panel-header>
     <mat-panel-title>
       Joined
@@ -160,7 +168,8 @@
       </mat-list-item>
     </mat-list>
   </div>
-</mat-expansion-panel>
+</mat-expansion-panel> -->
+
 <!-- <div *ngIf="joinMatches">
   <h4>Joined</h4>
   <mat-card *ngFor="let joinedMatch of joinMatches">
