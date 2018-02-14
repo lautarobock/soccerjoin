@@ -1,4 +1,18 @@
 <sj-toolbar [isHome]="true" [actions]="[]"></sj-toolbar>
-<p>
-  stats works!
-</p>
+<mat-tab-group>
+  <mat-tab label="Week">
+    <div style="display: block" *ngIf="lastWeekData">
+      <canvas baseChart [datasets]="lastWeekData" [labels]="lastWeekLabels" [options]="options" [legend]="true" chartType="bar"></canvas>
+    </div>
+    <!-- <pre>{{lastWeekData | json:2}}</pre>
+    <pre>{{lastWeekLabels | json:2}}</pre> -->
+  </mat-tab>
+  <mat-tab label="Month">
+    <div style="display: block" *ngIf="lastMonthData">
+      <canvas baseChart [datasets]="lastMonthData" [labels]="lastMonthLabels" [options]="options" [legend]="true" chartType="bar"></canvas>
+    </div>
+    <!-- <pre>{{lastMonthData | json:2}}</pre>
+    <pre>{{lastMonthLabels | json:2}}</pre> -->
+  </mat-tab>
+</mat-tab-group>
+
