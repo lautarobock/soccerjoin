@@ -5,27 +5,20 @@
     <img matListAvatar [src]="match.owner.pictureUrl" />
     <h3 matLine>
       {{match.name}}
-      <span *ngIf="!isMine">
-        <button mat-icon-button *ngIf="isLike" style="float: right" (click)="unlike()">
-          <i class="fas  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
-        </button>
-        <button mat-icon-button *ngIf="!isLike" style="float: right" (click)="like()">
-          <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
-        </button>
-        <!-- <span *ngIf="isJoin" style="float: right; margin-right: 1em" (click)="unjoin()">
-          <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
+      <span *ngIf="session.loggedUser()">
+        <span *ngIf="!isMine">
+          <button mat-icon-button *ngIf="isLike" style="float: right" (click)="unlike()">
+            <i class="fas  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+          </button>
+          <button mat-icon-button *ngIf="!isLike" style="float: right" (click)="like()">
+            <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+          </button>
         </span>
-        <span *ngIf="!isJoin" style="float: right; margin-right: 1em" (click)="join()">
-          <i class="far fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
-        </span> -->
-      </span>
-      <span *ngIf="isMine">
-        <button mat-icon-button style="float: right" (click)="likeMyself()">
-          <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
-        </button>
-        <!-- <span style="float: right; margin-right: 1em">
-          <i class="fas fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
-        </span> -->
+        <span *ngIf="isMine">
+          <button mat-icon-button style="float: right" (click)="likeMyself()">
+            <i class="far  fa-lg fa-thumbs-up"></i> {{match.likes.length}}
+          </button>
+        </span>
       </span>
     </h3>
     <p matLine>
@@ -34,10 +27,7 @@
     </p>
   </mat-list-item>
 </mat-list>
-<!-- <button mat-fab style="z-index: 2000;position: absolute;right: 1em;top: 107px;" routerLink="/strava/importer">
-  <i class="fas fa-level-down-alt"></i>
-</button> -->
-<div class="button-row">
+<div class="button-row" *ngIf="session.loggedUser()">
   <button *ngIf="isJoin !== undefined && !isMine && !isJoin" (click)="join()" mat-button color="accent">
     <i class="far fa-dot-circle"></i>
     Join
@@ -46,15 +36,12 @@
     <i class="fas fa-dot-circle"></i>
     Joined
   </button>
-  <button *ngIf="isJoin !== undefined && isMine" disabled mat-button color="accent">
+  <button *ngIf="isJoin === undefined || isMine" disabled mat-button color="accent">
     <i class="fas fa-dot-circle"></i>
   </button>
   <span *ngIf="match.join?.matches?.length">
     {{match.join?.matches?.length}} players in this match
   </span>
-  <!-- <span *ngIf="!isJoin" style="float: right; margin-right: 1em" (click)="join()">
-    <i class="far fa-dot-circle"></i> {{match.join?.matches?.length - 1}}
-  </span> -->
 </div>
 <agm-map #map *ngIf="platform.isBrowser()" [latitude]="match.center.lat" [streetViewControl]="false" [rotateControl]="true" [longitude]="match.center.lng" [zoom]="22" mapTypeId="satellite"
   (mapReady)="mapReady($event)">
@@ -79,7 +66,7 @@
 </mat-expansion-panel>
 <mat-list>
   <mat-list-item>
-    <form style="margin-top: 2em">
+    <form style="margin-top: 2em; width: 100%">
       <mat-form-field style="width: 30%">
         <input matInput readonly placeholder="Moving time" value="{{match.movingTime / 60  | number:'2.0-0'}} min">
       </mat-form-field>
@@ -93,7 +80,7 @@
   </mat-list-item>
 
   <mat-list-item>
-    <form style="margin-top: 2em">
+    <form style="margin-top: 2em; width: 100%">
       <mat-form-field style="width: 30%">
         <input matInput readonly placeholder="Distance" value="{{match.distance / 1000 | number:'1.2-2'}} Km" />
       </mat-form-field>
