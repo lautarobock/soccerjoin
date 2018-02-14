@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading" style="position: fixed; z-index: 2000" color="accent"></mat-progress-bar>
 <mat-sidenav-container>
-    <mat-sidenav [mode]="sideNavMode" [(opened)]="sideOpen">
+    <mat-sidenav [mode]="sideNavMode" [(opened)]="sideOpen" style="background-color: #E8FFCC">
         <mat-toolbar color="primary" *ngIf="!mobileQuery.matches"></mat-toolbar>
         <sj-menu></sj-menu>
     </mat-sidenav>
