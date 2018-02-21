@@ -51,6 +51,7 @@ export class Match {
     public likes: Like[];
     public join: Join;
     public isPublic: boolean;
+    public comments: Comment[];
 }
 
 export class Like {
@@ -67,4 +68,11 @@ export class Point {
 
 export class Join {
     public matches: (Match | string)[]
+}
+
+export class Comment {
+    text: string;
+    owner: User | string;
+    creationDate: Date;
+    modificationDate: Date;
 }

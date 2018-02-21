@@ -5,6 +5,8 @@
       {{match.name}}
       <span style="margin-left: 1em" *ngIf="match.likes.length">
         <i class="fas fa-thumbs-up"></i> {{match.likes.length}}</span>
+      <span style="margin-left: 1em" *ngIf="match.comments.length">
+        <i class="fas fa-comment"></i> {{match.comments.length}}</span>
     </h3>
     <p matLine>
       {{match.startDate | date: 'EEE MM/dd/yy HH:mm'}}

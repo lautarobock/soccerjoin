@@ -48,6 +48,10 @@ export class MatchesService {
     return this.http.delete<void>(`${environment.backendUrl}/api/matches/${match._id}/like`, {});
   }
 
+  comment(match: Match, text: string) {
+    return this.http.post<Match>(`${environment.backendUrl}/api/matches/${match._id}/comments`, {text});
+  }
+
   join(match: Match, to: Match) {
     return this.http.post<Join>(`${environment.backendUrl}/api/matches/${match._id}/join/${to._id}`, {});
   }

@@ -20,6 +20,7 @@ import { MatchChartComponent } from './matches/match-detail/match-chart.componen
 import { MenuComponent } from './menu/menu.component';
 import { StatsComponent } from './stats/stats.component';
 import { MenuService } from './menu/menu.service';
+import { MatchCommentsComponent } from './matches/match-detail/match-comments.component';
 
 @NgModule({
   imports: [
@@ -116,7 +117,8 @@ import { MenuService } from './menu/menu.service';
     MatchEditComponent,
     MatchChartComponent,
     MenuComponent,
-    StatsComponent
+    StatsComponent,
+    MatchCommentsComponent
   ],
   entryComponents: [
     JoinDialogComponent

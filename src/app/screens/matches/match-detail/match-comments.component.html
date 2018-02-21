@@ -1,0 +1,21 @@
+<mat-list dense>
+  <mat-list-item *ngFor="let comment of match.comments">
+    <img matListAvatar [src]="comment.owner.pictureUrl" />
+    <div matLine>
+      {{comment.owner.name}} - {{comment.creationDate | date:'EEE MM/dd/yy HH:mm'}}
+    </div>
+    <div matLine>
+      {{comment.text}}
+    </div>
+  </mat-list-item>
+</mat-list>
+<form (ngSubmit)="save()">
+  <mat-form-field *ngIf="newComment" style="width: 100%; position: fixed;bottom: 0px;background: white;border-top: 1px solid;">
+    <input #input matInput placeholder="Write a new comment" (blur)="blur()" (keyup.esc)="input.blur()" [(ngModel)]="newCommentText" name="newCommentText">
+    <mat-icon matSuffix (click)="save()">check</mat-icon>
+  </mat-form-field>
+</form>
+<div *ngIf="newComment" style="height: 70px"></div>
+<button *ngIf="!newComment" mat-fab style="position: fixed; bottom: 1em; right: 1em; z-index: 2000" (click)="add()">
+  <i class="fas fa-comment"></i>
+</button>
