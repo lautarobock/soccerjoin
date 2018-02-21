@@ -71,6 +71,7 @@ export class Join {
 }
 
 export class Comment {
+    _id: string;
     text: string;
     owner: User | string;
     creationDate: Date;

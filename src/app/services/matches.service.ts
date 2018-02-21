@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Session } from './session.service';
-import { Match, Join } from '../domain/model';
+import { Match, Comment, Join } from '../domain/model';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -49,7 +49,11 @@ export class MatchesService {
   }
 
   comment(match: Match, text: string) {
-    return this.http.post<Match>(`${environment.backendUrl}/api/matches/${match._id}/comments`, {text});
+    return this.http.post<void>(`${environment.backendUrl}/api/matches/${match._id}/comments`, {text});
+  }
+
+  removeComment(match: Match, comment: Comment) {
+    return this.http.delete<void>(`${environment.backendUrl}/api/matches/${match._id}/comments/${comment._id}`);
   }
 
   join(match: Match, to: Match) {

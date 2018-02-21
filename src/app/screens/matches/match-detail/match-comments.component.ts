@@ -15,6 +15,7 @@ export class MatchCommentsComponent implements OnInit {
   @ViewChild('input') input: ElementRef;
   newComment = false;
   newCommentText = '';
+  saving = false;
 
   constructor(
     private session: Session,
@@ -35,6 +36,7 @@ export class MatchCommentsComponent implements OnInit {
   }
 
   save() {
+    this.saving = true;
     this.matchesService.comment(this.match, this.newCommentText).subscribe(
       match => {
         console.log(match);
@@ -43,24 +45,45 @@ export class MatchCommentsComponent implements OnInit {
           modificationDate: new Date(),
           text: this.newCommentText,
           owner: this.session.loggedUser()
-        });
+        } as Comment);
         this.clearNew();
+        this.saving = false;
       },
       err => {
         console.error(err);
+        this.saving = false;
         this.snackBar.open('Ups, it was a problem, try again.', 'CLOSE');
       }
     );
   }
 
   blur() {
-    if (this.newCommentText.trim() === '' || confirm('Discard changes?')) {
-      this.clearNew();
-    }
+    setTimeout(() => {
+      if (this.saving || !this.newComment) {
+        
+      } else if (!this.saving && this.newComment && this.newCommentText.trim() === '' || confirm('Discard changes?')) {
+        this.clearNew();
+      }
+    }, 500);
   }
 
   clearNew() {
     this.newComment = false;
     this.newCommentText = '';
+  }
+
+  remove(comment: Comment) {
+    if(confirm('Are you sure to delete the comment?')) {
+      this.matchesService.removeComment(this.match, comment).subscribe(
+        () => {
+          const idx = this.match.comments.findIndex(c => c._id === comment._id);
+          this.match.comments.splice(idx, 1);
+        },
+        err => {
+          console.error(err);
+          this.snackBar.open('Ups, it was a problem, try again.', 'CLOSE');
+        }
+      );
+    }
   }
 }
