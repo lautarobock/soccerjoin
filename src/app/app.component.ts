@@ -12,6 +12,7 @@ import { Action } from './screens/toolbar/toolbar.component';
 import { Platform } from './tools/platform.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MenuService } from './screens/menu/menu.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private platform: Platform,
     private menuService: MenuService,
     private spinner: SpinnerService,
+    private snackBar: MatSnackBar,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher
   ) {
@@ -56,7 +58,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.session.token() && !this.session.loggedUser()) {
-      this.userService.me().subscribe(me => this.session.registerUser(me));
+      this.userService.me().subscribe(
+        me => this.session.registerUser(me),
+        err => {
+          this.snackBar.open('Your session has expired!', 'close');
+          this.session.clearSession();
+          window.location.reload();
+        }
+      );
     }
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {

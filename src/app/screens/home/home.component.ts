@@ -7,6 +7,7 @@ import { Action } from '../toolbar/toolbar.component';
 import { MatInput, MatFormField } from '@angular/material';
 import { Subject } from 'rxjs/Subject';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sj-home',
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     public session: Session,
     private userService: UsersService,
-    private matchesService: MatchesService
+    private matchesService: MatchesService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -58,4 +60,13 @@ export class HomeComponent implements OnInit {
     this.searchMode = this.searchText.trim() !== '';
   }
 
+  import() {
+    if (this.session.loggedUser().strava) {
+      this.router.navigate(['/importer/strava']);
+    } else if (this.session.loggedUser().endomondo) {
+      this.router.navigate(['/importer/endomondo']);
+    } else  {
+
+    }
+  }
 }

@@ -21,6 +21,8 @@ import { MenuComponent } from './menu/menu.component';
 import { StatsComponent } from './stats/stats.component';
 import { MenuService } from './menu/menu.service';
 import { MatchCommentsComponent } from './matches/match-detail/match-comments.component';
+import { EndomondoLoginComponent } from './login/endomondo-login/endomondo-login.component';
+import { EndomondoImporterComponent } from './importer/endomondo-importer/endomondo-importer.component';
 
 @NgModule({
   imports: [
@@ -84,8 +86,17 @@ import { MatchCommentsComponent } from './matches/match-detail/match-comments.co
         component: LoginComponent
       },
       {
-        path: 'strava/importer',
+        path: 'login/endomondo',
+        component: EndomondoLoginComponent
+      },
+      {
+        path: 'importer/strava',
         component: StravaImporterComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'importer/endomondo',
+        component: EndomondoImporterComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -118,7 +129,9 @@ import { MatchCommentsComponent } from './matches/match-detail/match-comments.co
     MatchChartComponent,
     MenuComponent,
     StatsComponent,
-    MatchCommentsComponent
+    MatchCommentsComponent,
+    EndomondoLoginComponent,
+    EndomondoImporterComponent
   ],
   entryComponents: [
     JoinDialogComponent

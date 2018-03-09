@@ -16,6 +16,10 @@ export class User {
         id: number;
         access_token: string
     }
+    public endomondo: {
+        id: number;
+        authToken: string;
+    }
 }
 
 export class LoginResponse {
@@ -28,8 +32,11 @@ export class Match {
     public _id: string;
     public name;
     public strava: {
-        id: number;
+        id: number,
         external_id: string
+    };
+    public endomondo: {
+        id: number
     };
     public distance: number;
     public movingTime: number;

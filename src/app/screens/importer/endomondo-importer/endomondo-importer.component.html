@@ -1,0 +1,37 @@
+<sj-toolbar></sj-toolbar>
+<div class="importer">
+  <mat-form-field style="width: 500px; max-width: 90%">
+    <mat-select placeholder="Activities from endomondo" [(value)]="selected" (change)="showInfo(selected)">
+      <mat-option *ngFor="let item of workouts; last as last" [value]="item">
+        {{item.name}} {{item.distance_km|number}}Km on {{item.start_time | date:'EEE MM/dd/yy HH:mm'}} by {{item.duration_sec/60|number:'1.0-0'}}
+        minutes
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <agm-map #map [latitude]="lat" [longitude]="lng" [zoom]="zoom" mapTypeId="satellite" (mapReady)="mapReady($event)">
+    <agm-circle *ngIf="workout" [latitude]="lat" [longitude]="lng" [radius]="1" [fillOpacity]="1" [fillColor]="'blue'"></agm-circle>
+  </agm-map>
+  <mat-list *ngIf="workout">
+    <mat-list-item>
+      <b>Name:</b>&nbsp;{{workout.name}}</mat-list-item>
+    <mat-list-item>
+      <b>Distance:</b>&nbsp;{{workout.distance | number:'1.2-2'}} Km</mat-list-item>
+    <mat-list-item>
+      <b>Elapsed Time:</b>&nbsp;{{workout.duration/60 | number:'2.2-2'}} minutes</mat-list-item>
+    <mat-list-item>
+      <b>Started:</b>&nbsp;{{workout.start_time | date:'EEEE MM/dd/yyyy HH:mm'}}</mat-list-item>
+    <mat-list-item>
+      <b>Average Speed:</b>&nbsp;{{workout.speed_avg | number:'1.2-2'}} Km/h</mat-list-item>
+    <mat-list-item>
+      <b>Max Speed:</b>&nbsp;{{workout.speed_max | number:'1.2-2'}} Km/h</mat-list-item>
+    <mat-list-item>
+      <b>Average Heart Rate:</b>&nbsp;{{workout.heart_rate_avg}}</mat-list-item>
+    <mat-list-item>
+      <b>Max Heart Rate:</b>&nbsp;{{workout.heart_rate_max}}</mat-list-item>
+    <mat-list-item>
+      <b>Calories:</b>&nbsp;{{workout.calories}}</mat-list-item>
+  </mat-list>
+  <button *ngIf="workout" (click)="import()" style="margin-left: auto; display: block" mat-raised-button color="primary">
+    <i class="fas fa-upload"></i> IMPORT
+  </button>
+</div>

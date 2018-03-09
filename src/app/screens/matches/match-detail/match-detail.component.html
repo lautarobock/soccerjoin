@@ -68,7 +68,8 @@
   <mat-list-item>
     <form style="margin-top: 2em; width: 100%">
       <mat-form-field style="width: 30%">
-        <input matInput readonly placeholder="Moving time" value="{{match.movingTime / 60  | number:'2.0-0'}} min">
+        <input matInput readonly placeholder="Moving time" *ngIf="match.movingTime" value="{{match.movingTime / 60  | number:'2.0-0'}} min">
+        <input matInput readonly placeholder="Moving time" *ngIf="!match.movingTime" value="-">
       </mat-form-field>
       <mat-form-field style="width: 30%">
         <input matInput readonly placeholder="Elapsed time" value="{{match.elapsedTime / 60  | number:'2.0-0'}} min">

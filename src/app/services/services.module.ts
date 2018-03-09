@@ -10,6 +10,7 @@ import { GeoService } from './geo.service';
 import { StravaService } from './strava.service';
 import { SpinnerInterceptorService } from './spinner-interceptor.service';
 import { SpinnerService } from './spinner.service';
+import { EndomondoService } from './endomondo.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { SpinnerService } from './spinner.service';
     GeoService,
     StravaService,
     SpinnerService,
+    EndomondoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

@@ -19,6 +19,8 @@ export class SpinnerInterceptorService implements HttpInterceptor {
         if (data instanceof HttpResponse) {
           this.spinnerService.stop();
         }
+      }, err => {
+        this.spinnerService.stop();
       })
     );
   }
